@@ -36,14 +36,8 @@
       overflow-x: hidden;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    ul {
-      list-style: none;
-    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
     /* Top Announcement Bar */
     .announcement-bar {
@@ -82,11 +76,7 @@
       letter-spacing: 1px;
     }
 
-    .nav-menu {
-      display: flex;
-      gap: 25px;
-    }
-
+    .nav-menu { display: flex; gap: 25px; }
     .nav-link {
       font-weight: 500;
       font-size: 0.95rem;
@@ -94,21 +84,10 @@
       letter-spacing: 0.5px;
       transition: color 0.3s;
     }
+    .nav-link:hover { color: var(--primary-color); }
 
-    .nav-link:hover {
-      color: var(--primary-color);
-    }
-
-    .nav-icons {
-      display: flex;
-      gap: 20px;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .cart-icon-wrap {
-      position: relative;
-    }
+    .nav-icons { display: flex; gap: 20px; font-size: 1.2rem; cursor: pointer; }
+    .cart-icon-wrap { position: relative; }
 
     .cart-badge {
       position: absolute;
@@ -144,11 +123,7 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 25px;
-      letter-spacing: 1px;
-    }
+    .hero-content p { font-size: 1.2rem; margin-bottom: 25px; letter-spacing: 1px; }
 
     .btn-primary {
       background: var(--secondary-color);
@@ -163,10 +138,7 @@
       transition: all 0.3s;
     }
 
-    .btn-primary:hover {
-      background: #c29d2b;
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { background: #c29d2b; transform: translateY(-2px); }
 
     /* Section Layout */
     .section-title {
@@ -212,9 +184,7 @@
       transition: transform 0.5s;
     }
 
-    .category-card:hover img {
-      transform: scale(1.08);
-    }
+    .category-card:hover img { transform: scale(1.08); }
 
     .category-overlay {
       position: absolute;
@@ -245,9 +215,7 @@
       position: relative;
     }
 
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
+    .product-card:hover { transform: translateY(-5px); }
 
     .product-badge {
       position: absolute;
@@ -262,53 +230,14 @@
       z-index: 10;
     }
 
-    .product-img-wrap {
-      position: relative;
-      height: 380px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .product-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 15px;
-    }
-
-    .product-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .product-price {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .current-price {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .original-price {
-      text-decoration: line-through;
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    .discount {
-      color: #2e7d32;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
+    .product-img-wrap { position: relative; height: 380px; width: 100%; overflow: hidden; }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .product-details { padding: 15px; }
+    .product-title { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+    .product-price { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+    .current-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-color); }
+    .original-price { text-decoration: line-through; color: #888; font-size: 0.9rem; }
+    .discount { color: #2e7d32; font-size: 0.85rem; font-weight: 600; }
 
     .add-to-cart-btn {
       width: 100%;
@@ -322,17 +251,10 @@
       transition: background 0.3s;
     }
 
-    .add-to-cart-btn:hover {
-      background: var(--primary-color);
-    }
+    .add-to-cart-btn:hover { background: var(--primary-color); }
 
     /* Trust & Value Highlights */
-    .trust-features {
-      background: var(--gray-light);
-      padding: 40px 20px;
-      margin-top: 60px;
-    }
-
+    .trust-features { background: var(--gray-light); padding: 40px 20px; margin-top: 60px; }
     .trust-container {
       max-width: 1300px;
       margin: 0 auto;
@@ -342,21 +264,9 @@
       text-align: center;
     }
 
-    .trust-item i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-
-    .trust-item h4 {
-      font-size: 1.05rem;
-      margin-bottom: 5px;
-    }
-
-    .trust-item p {
-      font-size: 0.85rem;
-      color: #666;
-    }
+    .trust-item i { font-size: 2rem; color: var(--primary-color); margin-bottom: 10px; }
+    .trust-item h4 { font-size: 1.05rem; margin-bottom: 5px; }
+    .trust-item p { font-size: 0.85rem; color: #666; }
 
     /* Admin Quick Toggle Floating Button */
     .admin-toggle {
@@ -395,8 +305,8 @@
       z-index: 2000;
     }
 
-    /* Shopify-like Admin Panel Modal */
-    .admin-modal {
+    /* Modals & Cart Side Drawer */
+    .modal-overlay {
       display: none;
       position: fixed;
       top: 0;
@@ -409,10 +319,10 @@
       align-items: center;
     }
 
-    .admin-content {
+    .admin-content, .checkout-content {
       background: white;
       width: 90%;
-      max-width: 800px;
+      max-width: 600px;
       max-height: 85vh;
       border-radius: 8px;
       overflow-y: auto;
@@ -420,40 +330,44 @@
       position: relative;
     }
 
-    .close-admin {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+    .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--gray-border); border-radius: 4px; }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
+    /* Side Cart Drawer Style */
+    #cartDrawer {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
       width: 100%;
-      padding: 10px;
-      border: 1px solid var(--gray-border);
-      border-radius: 4px;
+      max-width: 380px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -4px 0 15px rgba(0,0,0,0.2);
+      z-index: 3500;
+      padding: 20px;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
+    .payment-option {
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .payment-option input { width: auto; }
 
     /* Footer */
-    footer {
-      background: #111;
-      color: #ccc;
-      padding: 50px 20px 20px;
-      font-size: 0.9rem;
-    }
-
+    footer { background: #111; color: #ccc; padding: 50px 20px 20px; font-size: 0.9rem; }
     .footer-container {
       max-width: 1300px;
       margin: 0 auto;
@@ -462,24 +376,9 @@
       gap: 30px;
       margin-bottom: 40px;
     }
-
-    .footer-col h3 {
-      color: white;
-      font-family: var(--font-heading);
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 8px;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-      color: #777;
-    }
+    .footer-col h3 { color: white; font-family: var(--font-heading); margin-bottom: 15px; font-size: 1.2rem; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #333; color: #777; }
   </style>
 </head>
 <body>
@@ -505,7 +404,8 @@
         <i class="fa-solid fa-magnifying-glass" title="Search"></i>
         <i class="fa-regular fa-heart" title="Wishlist"></i>
         <i class="fa-regular fa-user" title="Account"></i>
-        <div class="cart-icon-wrap" onclick="alert('Cart View')">
+        <!-- Click to open Slide-out Cart Drawer -->
+        <div class="cart-icon-wrap" onclick="toggleCart()">
           <i class="fa-solid fa-bag-shopping" title="Cart"></i>
           <span class="cart-badge" id="cartCount">0</span>
         </div>
@@ -546,6 +446,7 @@
   <!-- Trending Products Section -->
   <h2 class="section-title">Trending Now</h2>
   <div class="product-grid" id="productGrid">
+    
     <!-- Product 1 -->
     <div class="product-card">
       <span class="product-badge">BESTSELLER</span>
@@ -559,7 +460,7 @@
           <span class="original-price">₹4,999</span>
           <span class="discount">(50% OFF)</span>
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Banarasi Silk Woven Saree', 2499)">Add to Cart</button>
       </div>
     </div>
 
@@ -576,7 +477,7 @@
           <span class="original-price">₹3,799</span>
           <span class="discount">(50% OFF)</span>
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Embroidered Anarkali Set', 1899)">Add to Cart</button>
       </div>
     </div>
 
@@ -592,7 +493,7 @@
           <span class="original-price">₹2,599</span>
           <span class="discount">(50% OFF)</span>
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Floral Satin Evening Gown', 1299)">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -623,9 +524,70 @@
     </div>
   </section>
 
-  <!-- Floating Elements -->
+  <!-- Side Sliding Cart Drawer -->
+  <div id="cartDrawer">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:10px;">
+        <h3 style="margin:0; font-family:var(--font-heading);">Shopping Bag</h3>
+        <span onclick="toggleCart()" style="cursor:pointer; font-size:1.5rem;">&times;</span>
+      </div>
+      <div id="cartItemsList" style="margin-top:20px; max-height: 60vh; overflow-y: auto;">
+        <p id="emptyCartMsg" style="color:#777; text-align:center; margin-top:30px;">आपका कार्ट अभी खाली है।</p>
+      </div>
+    </div>
+    
+    <div style="border-top:1px solid #eee; padding-top:15px; margin-top:auto;">
+      <div style="display:flex; justify-content:space-between; font-weight:bold; font-size: 1.1rem; margin-bottom:15px;">
+        <span>Total Amount:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn-primary" style="width:100%; text-align:center;" onclick="openCheckout()">Checkout / Payment</button>
+    </div>
+  </div>
+
+  <!-- Checkout & Payment Gateway Modal -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="checkout-content">
+      <span class="close-modal" onclick="closeCheckout()">&times;</span>
+      <h2 style="font-family: var(--font-heading); margin-bottom: 15px;">Complete Your Order</h2>
+      
+      <form onsubmit="processPayment(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Saurabh Kumar" required>
+        </div>
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <input type="text" placeholder="House No, Road, City, Pincode" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 9876543210" required>
+        </div>
+
+        <h3 style="margin: 15px 0 10px; font-size: 1.1rem;">Select Payment Option</h3>
+        
+        <label class="payment-option">
+          <input type="radio" name="payment" value="UPI" checked>
+          <i class="fa-solid fa-qrcode" style="color: #25d366;"></i> UPI / PhonePe / GPay / Paytm
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Card">
+          <i class="fa-regular fa-credit-card" style="color: #007bff;"></i> Debit / Credit Card
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="COD">
+          <i class="fa-solid fa-money-bill-wave" style="color: #2e7d32;"></i> Cash on Delivery (COD)
+        </label>
+
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px;">Pay Now & Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Admin Toggle Button -->
   <div class="admin-toggle" onclick="toggleAdminPanel()">
-    <i class="fa-solid fa-sliders"></i> Admin Panel
+    <i class="fa-solid fa-sliders"></i> Add Product (Admin)
   </div>
 
   <a href="https://wa.me/910000000000" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
@@ -633,17 +595,17 @@
   </a>
 
   <!-- Admin Panel Drawer/Modal -->
-  <div class="admin-modal" id="adminModal">
+  <div class="modal-overlay" id="adminModal">
     <div class="admin-content">
-      <span class="close-admin" onclick="toggleAdminPanel()">&times;</span>
-      <h2 style="font-family: var(--font-heading); margin-bottom: 20px;">Shopify-like Store Manager</h2>
+      <span class="close-modal" onclick="toggleAdminPanel()">&times;</span>
+      <h2 style="font-family: var(--font-heading); margin-bottom: 20px;">Store Admin Panel</h2>
       
       <form id="addProductForm" onsubmit="handleProductAdd(event)">
-        <h3>Add New Product</h3>
+        <h3>Add New Product to Store</h3>
         <br>
         <div class="form-group">
           <label>Product Name</label>
-          <input type="text" id="pName" placeholder="e.g. Georgette Chikankari Kurti" required>
+          <input type="text" id="pName" placeholder="e.g. Designer Heavy Silk Kurti" required>
         </div>
         <div class="form-group">
           <label>Category</label>
@@ -655,18 +617,18 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Price (₹)</label>
+          <label>Selling Price (₹)</label>
           <input type="number" id="pPrice" placeholder="1999" required>
         </div>
         <div class="form-group">
-          <label>Original Price (₹)</label>
+          <label>Original MRP (₹)</label>
           <input type="number" id="pOrigPrice" placeholder="3999" required>
         </div>
         <div class="form-group">
-          <label>Image URL (Photo/Video Link)</label>
-          <input type="url" id="pImg" placeholder="https://..." required>
+          <label>Image URL (Direct Photo Link)</label>
+          <input type="url" id="pImg" placeholder="https://images.unsplash.com/..." required>
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Upload & Publish Product</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Publish Product Live</button>
       </form>
     </div>
   </div>
@@ -684,7 +646,7 @@
           <li><a href="#">About Us</a></li>
           <li><a href="#">Contact Us</a></li>
           <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return & Refund Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -702,30 +664,74 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 AURA Fashion Inc. All rights reserved. Powered by Clean Web Architecture.
+      &copy; 2026 AURA Fashion Inc. All rights reserved.
     </div>
   </footer>
 
-  <!-- Basic Dynamic Logic -->
+  <!-- Complete Functional Logic -->
   <script>
     let cartCount = 0;
+    let totalPrice = 0;
 
-    function addToCart() {
-      cartCount++;
-      document.getElementById('cartCount').innerText = cartCount;
-      alert('Product added to bag successfully!');
+    // Cart Sliding Toggle
+    function toggleCart() {
+      const drawer = document.getElementById('cartDrawer');
+      drawer.style.display = (drawer.style.display === 'flex') ? 'none' : 'flex';
     }
 
+    // Add Items to Cart
+    function addToCart(title, price) {
+      cartCount++;
+      totalPrice += price;
+
+      document.getElementById('cartCount').innerText = cartCount;
+      document.getElementById('emptyCartMsg').style.display = 'none';
+
+      const cartList = document.getElementById('cartItemsList');
+      const itemRow = document.createElement('div');
+      itemRow.style.cssText = "display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px dashed #eee; padding-bottom:8px;";
+      itemRow.innerHTML = `<span style="font-size:0.9rem; font-weight:500;">${title}</span> <strong style="color:var(--primary-color);">₹${price}</strong>`;
+      
+      cartList.appendChild(itemRow);
+      document.getElementById('cartTotal').innerText = `₹${totalPrice}`;
+
+      // Show Cart Drawer
+      document.getElementById('cartDrawer').style.display = 'flex';
+    }
+
+    // Checkout Modal Handlers
+    function openCheckout() {
+      if(cartCount === 0) {
+        alert("आपका कार्ट अभी खाली है! पहले कोई प्रोडक्ट ऐड करें।");
+        return;
+      }
+      toggleCart();
+      document.getElementById('checkoutModal').style.display = 'flex';
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkoutModal').style.display = 'none';
+    }
+
+    function processPayment(e) {
+      e.preventDefault();
+      alert('🎉 बधाई हो! आपका ऑर्डर सफलतापूर्वक प्लेस हो गया है।');
+      closeCheckout();
+      location.reload(); // Refresh page after order
+    }
+
+    // Admin Panel Modal Handlers
     function toggleAdminPanel() {
       const modal = document.getElementById('adminModal');
-      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
     }
 
+    // Dynamic Product Add Logic
     function handleProductAdd(event) {
       event.preventDefault();
       
       const name = document.getElementById('pName').value;
-      const price = document.getElementById('pPrice').value;
+      const price = parseInt(document.getElementById('pPrice').value);
       const origPrice = document.getElementById('pOrigPrice').value;
       const img = document.getElementById('pImg').value;
 
@@ -745,12 +751,12 @@
             <span class="original-price">₹${origPrice}</span>
             <span class="discount">NEW</span>
           </div>
-          <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+          <button class="add-to-cart-btn" onclick="addToCart('${name}', ${price})">Add to Cart</button>
         </div>
       `;
 
       productGrid.prepend(newCard);
-      alert('New product added directly to store catalog!');
+      alert('✅ नया प्रोडक्ट दुकान पर लाइव हो गया है!');
       toggleAdminPanel();
       document.getElementById('addProductForm').reset();
     }
