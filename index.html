@@ -1,493 +1,759 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LUXURY | Premium Fashion Store</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --card-bg: #f8f9fa;
-            --text-color: #111111;
-            --text-muted: #666666;
-            --border-color: #e5e5e5;
-            --gold: #c5a059;
-            --accent: #000000;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA - Premium Ethnic & Western Wear</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Global Resets & Styling */
+    :root {
+      --primary-color: #800020; /* Royal Burgundy */
+      --secondary-color: #d4af37; /* Gold Accent */
+      --dark-text: #222222;
+      --light-bg: #fdfbf7;
+      --white: #ffffff;
+      --gray-light: #f4f4f4;
+      --gray-border: #e0e0e0;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
 
-        [data-theme="dark"] {
-            --bg-color: #0f0f0f;
-            --card-bg: #1a1a1a;
-            --text-color: #f5f5f5;
-            --text-muted: #aaaaaa;
-            --border-color: #2a2a2a;
-            --accent: #ffffff;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--font-body);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
+    body {
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        /* Announcement Bar */
-        .top-bar {
-            background: var(--text-color);
-            color: var(--bg-color);
-            text-align: center;
-            padding: 8px 15px;
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
+    ul {
+      list-style: none;
+    }
 
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            background: var(--bg-color);
-            z-index: 100;
-        }
+    /* Top Announcement Bar */
+    .announcement-bar {
+      background: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-decoration: none;
-            color: var(--text-color);
-        }
+    /* Navigation Header */
+    header {
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
 
-        .nav-links a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: var(--text-color);
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
+    .nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
 
-        .nav-icons {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            cursor: pointer;
-        }
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      letter-spacing: 1px;
+    }
 
-        .cart-count {
-            background: var(--gold);
-            color: #fff;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 50%;
-            margin-left: 3px;
-        }
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+    }
 
-        /* Hero Banner */
-        .hero {
-            height: 70vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #ffffff;
-            padding: 20px;
-        }
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
 
-        .hero h1 {
-            font-size: 48px;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
 
-        .hero p {
-            font-size: 16px;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
 
-        .btn {
-            padding: 12px 30px;
-            background: var(--accent);
-            color: var(--bg-color);
-            border: 1px solid var(--accent);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            letter-spacing: 1px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 13px;
-        }
+    .cart-icon-wrap {
+      position: relative;
+    }
 
-        .btn:hover {
-            opacity: 0.85;
-        }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--primary-color);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* Container & Grid */
-        .container {
-            padding: 60px 5%;
-        }
+    /* Hero Banner Carousel */
+    .hero-banner {
+      position: relative;
+      height: 75vh;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+    }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 28px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    .hero-content h1 {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
-        }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
 
-        /* Product Card */
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            position: relative;
-        }
+    .btn-primary {
+      background: var(--secondary-color);
+      color: var(--dark-text);
+      padding: 12px 35px;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
 
-        .product-card img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+    .btn-primary:hover {
+      background: #c29d2b;
+      transform: translateY(-2px);
+    }
 
-        .product-card:hover img {
-            transform: scale(1.04);
-        }
+    /* Section Layout */
+    .section-title {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      margin: 50px 0 30px;
+      position: relative;
+    }
 
-        .product-info {
-            padding: 20px;
-            text-align: center;
-        }
+    .section-title::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: var(--secondary-color);
+      display: block;
+      margin: 10px auto 0;
+    }
 
-        .product-title {
-            font-size: 16px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
+    /* Categories Grid */
+    .categories-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
 
-        .price {
-            font-weight: 700;
-            color: var(--gold);
-            font-size: 16px;
-        }
+    .category-card {
+      position: relative;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-        .compare-price {
-            text-decoration: line-through;
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-left: 8px;
-        }
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
 
-        .add-btn {
-            margin-top: 15px;
-            width: 100%;
-            background: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-        }
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
 
-        .add-btn:hover {
-            background: var(--text-color);
-            color: var(--bg-color);
-        }
+    .category-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      text-align: center;
+    }
 
-        /* Cart Drawer / Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; right: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 1000;
-            justify-content: flex-end;
-        }
+    /* Product Grid */
+    .product-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
 
-        .modal-content {
-            background: var(--bg-color);
-            width: 100%;
-            max-width: 450px;
-            height: 100%;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow-y: auto;
-        }
+    .product-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+      position: relative;
+    }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
 
-        .close-btn {
-            font-size: 24px;
-            cursor: pointer;
-        }
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--primary-color);
+      color: white;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 3px;
+      z-index: 10;
+    }
 
-        .cart-item {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            align-items: center;
-        }
+    .product-img-wrap {
+      position: relative;
+      height: 380px;
+      width: 100%;
+      overflow: hidden;
+    }
 
-        .cart-item img {
-            width: 70px;
-            height: 90px;
-            object-fit: cover;
-        }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        /* Footer */
-        footer {
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            padding: 50px 5%;
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
+    .product-details {
+      padding: 15px;
+    }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 32px; }
-        }
-    </style>
+    .product-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .current-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .discount {
+      color: #2e7d32;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .add-to-cart-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--dark-text);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--primary-color);
+    }
+
+    /* Trust & Value Highlights */
+    .trust-features {
+      background: var(--gray-light);
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    .trust-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .trust-item i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .trust-item h4 {
+      font-size: 1.05rem;
+      margin-bottom: 5px;
+    }
+
+    .trust-item p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* Admin Quick Toggle Floating Button */
+    .admin-toggle {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25d366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 2000;
+    }
+
+    /* Shopify-like Admin Panel Modal */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .admin-content {
+      background: white;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      border-radius: 8px;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+    }
+
+    .close-admin {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--gray-border);
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #ccc;
+      padding: 50px 20px 20px;
+      font-size: 0.9rem;
+    }
+
+    .footer-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h3 {
+      color: white;
+      font-family: var(--font-heading);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Top Announcement -->
-    <div class="top-bar">
-        FREE SHIPPING ON ALL ORDERS OVER ₹5,000 | LUXURY COLLECTION 2026
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    ✨ Festive Sale Live! Get 50% Off + Extra 10% Off on Prepaid Orders | Code: FESTIVE10
+  </div>
+
+  <!-- Main Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">AURA</div>
+      <ul class="nav-menu">
+        <li><a href="#" class="nav-link">New Arrivals</a></li>
+        <li><a href="#" class="nav-link">Sarees</a></li>
+        <li><a href="#" class="nav-link">Kurtis</a></li>
+        <li><a href="#" class="nav-link">Lehengas</a></li>
+        <li><a href="#" class="nav-link">Western Wear</a></li>
+        <li><a href="#" class="nav-link" style="color: var(--primary-color);">Sale</a></li>
+      </ul>
+      <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" title="Search"></i>
+        <i class="fa-regular fa-heart" title="Wishlist"></i>
+        <i class="fa-regular fa-user" title="Account"></i>
+        <div class="cart-icon-wrap" onclick="alert('Cart View')">
+          <i class="fa-solid fa-bag-shopping" title="Cart"></i>
+          <span class="cart-badge" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h1>Royal Festive Collection 2026</h1>
+      <p>Handcrafted Elegance & Modern Silhouettes</p>
+      <button class="btn-primary">Explore Collection</button>
+    </div>
+  </section>
+
+  <!-- Shop By Category -->
+  <h2 class="section-title">Shop By Category</h2>
+  <div class="categories-grid">
+    <div class="category-card">
+      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Sarees">
+      <div class="category-overlay"><h3>Designer Sarees</h3></div>
+    </div>
+    <div class="category-card">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Anarkali">
+      <div class="category-overlay"><h3>Anarkali Suits</h3></div>
+    </div>
+    <div class="category-card">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Western">
+      <div class="category-overlay"><h3>Western Dresses</h3></div>
+    </div>
+    <div class="category-card">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Co-ords">
+      <div class="category-overlay"><h3>Co-ord Sets</h3></div>
+    </div>
+  </div>
+
+  <!-- Trending Products Section -->
+  <h2 class="section-title">Trending Now</h2>
+  <div class="product-grid" id="productGrid">
+    <!-- Product 1 -->
+    <div class="product-card">
+      <span class="product-badge">BESTSELLER</span>
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Silk Saree">
+      </div>
+      <div class="product-details">
+        <div class="product-title">Banarasi Silk Woven Saree</div>
+        <div class="product-price">
+          <span class="current-price">₹2,499</span>
+          <span class="original-price">₹4,999</span>
+          <span class="discount">(50% OFF)</span>
+        </div>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+      </div>
     </div>
 
-    <!-- Header / Navbar -->
-    <nav class="navbar">
-        <a href="#" class="logo">AURA</a>
-        <div class="nav-links">
-            <a href="#featured">Featured</a>
-            <a href="#collection">Collection</a>
-            <a href="#about">About Us</a>
+    <!-- Product 2 -->
+    <div class="product-card">
+      <span class="product-badge">NEW</span>
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Kurti Set">
+      </div>
+      <div class="product-details">
+        <div class="product-title">Embroidered Anarkali Kurta Set</div>
+        <div class="product-price">
+          <span class="current-price">₹1,899</span>
+          <span class="original-price">₹3,799</span>
+          <span class="discount">(50% OFF)</span>
         </div>
-        <div class="nav-icons">
-            <span id="theme-toggle" title="Toggle Theme">🌙</span>
-            <div onclick="toggleCart()">
-                <span>🛍️ Bag</span>
-                <span class="cart-count" id="cart-count">0</span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="hero">
-        <div>
-            <h1>AUTUMN / WINTER 2026</h1>
-            <p>Handcrafted Italian Silk & Pure Leather Apparel</p>
-            <a href="#collection" class="btn">Explore Collection</a>
-        </div>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+      </div>
     </div>
 
-    <!-- Featured Products Grid -->
-    <div class="container" id="collection">
-        <h2 class="section-title">Featured Products</h2>
-        <div class="grid" id="product-list">
-            <!-- JavaScript will render products here dynamically -->
+    <!-- Product 3 -->
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Western Dress">
+      </div>
+      <div class="product-details">
+        <div class="product-title">Floral Satin Evening Gown</div>
+        <div class="product-price">
+          <span class="current-price">₹1,299</span>
+          <span class="original-price">₹2,599</span>
+          <span class="discount">(50% OFF)</span>
         </div>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Cart Modal Side-Drawer -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content">
-            <div>
-                <div class="modal-header">
-                    <h2>Your Shopping Bag</h2>
-                    <span class="close-btn" onclick="toggleCart()">&times;</span>
-                </div>
-                <div id="cart-items-container">
-                    <p style="margin-top:20px; text-align:center; color: var(--text-muted);">Your bag is currently empty.</p>
-                </div>
-            </div>
+  <!-- Trust Features -->
+  <section class="trust-features">
+    <div class="trust-container">
+      <div class="trust-item">
+        <i class="fa-solid fa-truck-fast"></i>
+        <h4>Fast Delivery</h4>
+        <p>Ships within 24-48 hours</p>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <h4>Easy 7-Day Returns</h4>
+        <p>Hassle-free return policy</p>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h4>100% Secure Payments</h4>
+        <p>UPI, Cards, NetBanking & COD</p>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-award"></i>
+        <h4>100% Original Products</h4>
+        <p>Premium Fabric & Quality</p>
+      </div>
+    </div>
+  </section>
 
-            <div>
-                <hr style="border-color: var(--border-color); margin-bottom: 15px;">
-                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 20px;">
-                    <span>Total:</span>
-                    <span id="cart-total">₹0.00</span>
-                </div>
-                <button class="btn" style="width: 100%;" onclick="checkout()">Proceed To Checkout</button>
-            </div>
+  <!-- Floating Elements -->
+  <div class="admin-toggle" onclick="toggleAdminPanel()">
+    <i class="fa-solid fa-sliders"></i> Admin Panel
+  </div>
+
+  <a href="https://wa.me/910000000000" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Admin Panel Drawer/Modal -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-content">
+      <span class="close-admin" onclick="toggleAdminPanel()">&times;</span>
+      <h2 style="font-family: var(--font-heading); margin-bottom: 20px;">Shopify-like Store Manager</h2>
+      
+      <form id="addProductForm" onsubmit="handleProductAdd(event)">
+        <h3>Add New Product</h3>
+        <br>
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" id="pName" placeholder="e.g. Georgette Chikankari Kurti" required>
         </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="pCat">
+            <option>Sarees</option>
+            <option>Kurtis</option>
+            <option>Lehengas</option>
+            <option>Western Wear</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price (₹)</label>
+          <input type="number" id="pPrice" placeholder="1999" required>
+        </div>
+        <div class="form-group">
+          <label>Original Price (₹)</label>
+          <input type="number" id="pOrigPrice" placeholder="3999" required>
+        </div>
+        <div class="form-group">
+          <label>Image URL (Photo/Video Link)</label>
+          <input type="url" id="pImg" placeholder="https://..." required>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Upload & Publish Product</button>
+      </form>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <footer id="about">
-        <p><strong>AURA LUXURY STORE</strong></p>
-        <p style="margin: 10px 0;">123 Fashion Street, New Delhi, India | Support: support@auraluxury.com</p>
-        <p>&copy; 2026 AURA Inc. All Rights Reserved.</p>
-    </footer>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AURA</h3>
+        <p>Premium Indian Ethnic & Contemporary Western Wear store crafted for the modern diva.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return & Refund Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Care</h3>
+        <ul>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <p>Join our community on Instagram & Facebook for daily outfit inspo.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 AURA Fashion Inc. All rights reserved. Powered by Clean Web Architecture.
+    </div>
+  </footer>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Sample Products Array with Unsplash Images
-        const products = [
-            {
-                id: 1,
-                name: "Italian Tailored Silk Suit",
-                price: 45000,
-                comparePrice: 52000,
-                image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800"
-            },
-            {
-                id: 2,
-                name: "Classic Black Tuxedo Jacket",
-                price: 32000,
-                comparePrice: 38000,
-                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800"
-            },
-            {
-                id: 3,
-                name: "Luxury Leather Overcoat",
-                price: 28000,
-                comparePrice: 34000,
-                image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?q=80&w=800"
-            },
-            {
-                id: 4,
-                name: "Handcrafted Leather Boots",
-                price: 18500,
-                comparePrice: 22000,
-                image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=800"
-            }
-        ];
+  <!-- Basic Dynamic Logic -->
+  <script>
+    let cartCount = 0;
 
-        let cart = [];
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cartCount').innerText = cartCount;
+      alert('Product added to bag successfully!');
+    }
 
-        // Render Products
-        function renderProducts() {
-            const container = document.getElementById('product-list');
-            container.innerHTML = products.map(p => `
-                <div class="product-card">
-                    <img src="${p.image}" alt="${p.name}">
-                    <div class="product-info">
-                        <div class="product-title">${p.name}</div>
-                        <div>
-                            <span class="price">₹${p.price.toLocaleString('en-IN')}</span>
-                            <span class="compare-price">₹${p.comparePrice.toLocaleString('en-IN')}</span>
-                        </div>
-                        <button class="btn add-btn" onclick="addToCart(${p.id})">Add To Bag</button>
-                    </div>
-                </div>
-            `).join('');
-        }
+    function toggleAdminPanel() {
+      const modal = document.getElementById('adminModal');
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
 
-        // Add Item to Cart
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
+    function handleProductAdd(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('pName').value;
+      const price = document.getElementById('pPrice').value;
+      const origPrice = document.getElementById('pOrigPrice').value;
+      const img = document.getElementById('pImg').value;
 
-            if (existing) {
-                existing.qty++;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
+      const productGrid = document.getElementById('productGrid');
+      
+      const newCard = document.createElement('div');
+      newCard.className = 'product-card';
+      newCard.innerHTML = `
+        <span class="product-badge">NEW</span>
+        <div class="product-img-wrap">
+          <img src="${img}" alt="${name}">
+        </div>
+        <div class="product-details">
+          <div class="product-title">${name}</div>
+          <div class="product-price">
+            <span class="current-price">₹${price}</span>
+            <span class="original-price">₹${origPrice}</span>
+            <span class="discount">NEW</span>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+      `;
 
-            updateCartUI();
-            toggleCart(true);
-        }
-
-        // Update Cart Drawer & Badge Count
-        function updateCartUI() {
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-            document.getElementById('cart-count').innerText = totalItems;
-            document.getElementById('cart-total').innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
-
-            const container = document.getElementById('cart-items-container');
-            if (cart.length === 0) {
-                container.innerHTML = `<p style="margin-top:20px; text-align:center; color: var(--text-muted);">Your bag is currently empty.</p>`;
-            } else {
-                container.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}">
-                        <div style="flex-grow:1;">
-                            <div style="font-weight:bold; font-size:14px;">${item.name}</div>
-                            <div style="color:var(--gold); font-size:13px; margin-top:4px;">₹${item.price.toLocaleString('en-IN')} x ${item.qty}</div>
-                        </div>
-                        <span onclick="removeFromCart(${item.id})" style="cursor:pointer; font-size:18px;">🗑️</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Remove Item
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-        }
-
-        // Toggle Modal
-        function toggleCart(forceOpen = false) {
-            const modal = document.getElementById('cart-modal');
-            if (forceOpen) {
-                modal.style.display = 'flex';
-            } else {
-                modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            }
-        }
-
-        // Checkout Button
-        function checkout() {
-            if (cart.length === 0) {
-                alert("Your bag is empty!");
-                return;
-            }
-            alert("Order placed successfully! Thank you for shopping with AURA.");
-            cart = [];
-            updateCartUI();
-            toggleCart();
-        }
-
-        // Dark / Light Theme Toggle
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.body.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                document.body.removeAttribute('data-theme');
-                themeToggleBtn.innerText = '🌙';
-            } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeToggleBtn.innerText = '☀️';
-            }
-        });
-
-        // Initialize Page
-        renderProducts();
-    </script>
+      productGrid.prepend(newCard);
+      alert('New product added directly to store catalog!');
+      toggleAdminPanel();
+      document.getElementById('addProductForm').reset();
+    }
+  </script>
 </body>
 </html>
