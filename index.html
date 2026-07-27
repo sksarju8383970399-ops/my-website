@@ -1,756 +1,493 @@
-shop/
-├── assets/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── main.js
-│   └── uploads/
-├── config/
-│   └── db.php
-├── includes/
-│   ├── header.php
-│   └── footer.php
-├── admin/
-│   ├── index.php
-│   ├── login.php
-│   ├── add-product.php
-│   └── settings.php
-├── database/
-│   └── schema.sql
-├── index.php
-├── product.php
-├── cart.php
-├── checkout.php
-├── process-order.php
-└── order-success.php
-
-CREATE DATABASE IF NOT EXISTS luxury_store DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE luxury_store;
-
--- 1. Website Settings Table
-CREATE TABLE IF NOT EXISTS settings (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    store_name VARCHAR(255) DEFAULT 'AURA LUXURY',
-    logo_url VARCHAR(255) DEFAULT 'assets/uploads/logo.png',
-    hero_banner VARCHAR(255) DEFAULT 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600',
-    contact_email VARCHAR(100) DEFAULT 'support@auraluxury.com',
-    contact_phone VARCHAR(20) DEFAULT '+91 9876543210',
-    whatsapp_number VARCHAR(20) DEFAULT '+91 9876543210',
-    store_address TEXT,
-    facebook_url VARCHAR(255) DEFAULT '#',
-    instagram_url VARCHAR(255) DEFAULT '#',
-    youtube_url VARCHAR(255) DEFAULT '#',
-    privacy_policy TEXT,
-    terms_conditions TEXT
-);
-
-INSERT INTO settings (store_name, store_address) 
-VALUES ('AURA LUXURY', '123 Fashion Street, New Delhi, India');
-
--- 2. Admin Users
-CREATE TABLE IF NOT EXISTS admin_users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Default Admin Credential: admin / admin123
-INSERT INTO admin_users (username, password_hash) 
-VALUES ('admin', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe118a7Jg5lYg1i4gqN4tP/9wH7eXm6Sm');
-
--- 3. Categories Table
-CREATE TABLE IF NOT EXISTS categories (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    slug VARCHAR(100) NOT NULL UNIQUE
-);
-
-INSERT INTO categories (name, slug) VALUES 
-('Men Fashion', 'men-fashion'),
-('Women Fashion', 'women-fashion'),
-('Luxury Accessories', 'luxury-accessories');
-
--- 4. Products Table
-CREATE TABLE IF NOT EXISTS products (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    category_id INT,
-    name VARCHAR(255) NOT NULL,
-    sku VARCHAR(100) UNIQUE,
-    description TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    compare_price DECIMAL(10,2) DEFAULT 0.00,
-    stock_quantity INT DEFAULT 10,
-    main_image VARCHAR(255),
-    is_featured TINYINT(1) DEFAULT 0,
-    is_new_arrival TINYINT(1) DEFAULT 1,
-    is_best_seller TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
-);
-
--- Sample Product
-INSERT INTO products (category_id, name, sku, description, price, compare_price, stock_quantity, main_image, is_featured, is_best_seller) 
-VALUES (1, 'Tailored Italian Silk Suit', 'SUIT-001', 'Handcrafted premium Italian silk suit engineered for modern elegance.', 45000.00, 52000.00, 15, 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800', 1, 1);
-
--- 5. Orders Table
-CREATE TABLE IF NOT EXISTS orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_number VARCHAR(50) UNIQUE NOT NULL,
-    customer_name VARCHAR(100) NOT NULL,
-    customer_email VARCHAR(100) NOT NULL,
-    customer_phone VARCHAR(20) NOT NULL,
-    shipping_address TEXT NOT NULL,
-    total_amount DECIMAL(10,2) NOT NULL,
-    payment_method VARCHAR(50) DEFAULT 'Razorpay / UPI / COD',
-    payment_status VARCHAR(20) DEFAULT 'Pending',
-    order_status VARCHAR(20) DEFAULT 'Processing',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- 6. Order Items Table
-CREATE TABLE IF NOT EXISTS order_items (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    product_id INT,
-    product_name VARCHAR(255),
-    price DECIMAL(10,2),
-    quantity INT,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-);
-
-<?php
-$host = 'localhost';
-$db   = 'luxury_store';
-$user = 'root';
-$pass = ''; // Set your MySQL password here
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    die("Database Connection Failed: " . $e->getMessage());
-}
-?>
-
-:root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #111111;
-    --text-secondary: #666666;
-    --accent: #111111;
-    --border: #e5e5e5;
-    --gold: #c5a059;
-}
-
-[data-theme="dark"] {
-    --bg-primary: #0f0f0f;
-    --bg-secondary: #1a1a1a;
-    --text-primary: #f5f5f5;
-    --text-secondary: #aaaaaa;
-    --accent: #ffffff;
-    --border: #2a2a2a;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    transition: background 0.3s, color 0.3s;
-}
-
-/* Header */
-.top-bar {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    text-align: center;
-    padding: 8px;
-    font-size: 12px;
-    letter-spacing: 1px;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    border-bottom: 1px solid var(--border);
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-decoration: none;
-    color: var(--text-primary);
-}
-
-.nav-links a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 1px;
-}
-
-.nav-icons span, .nav-icons a {
-    margin-left: 15px;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--text-primary);
-}
-
-/* Hero Section */
-.hero {
-    height: 75vh;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    position: relative;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.35);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-.hero h1 {
-    font-size: 50px;
-    letter-spacing: 4px;
-    margin-bottom: 15px;
-}
-
-.btn {
-    padding: 12px 30px;
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    letter-spacing: 1px;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-/* Products Grid */
-.container {
-    padding: 60px 5%;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 28px;
-    letter-spacing: 2px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    transition: transform 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-.product-card img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-}
-
-.product-info {
-    padding: 15px;
-    text-align: center;
-}
-
-.product-title {
-    font-size: 16px;
-    margin-bottom: 8px;
-    text-decoration: none;
-    color: var(--text-primary);
-    display: block;
-}
-
-.price {
-    font-weight: bold;
-    color: var(--gold);
-}
-
-.compare-price {
-    text-decoration: line-through;
-    color: var(--text-secondary);
-    font-size: 14px;
-    margin-left: 8px;
-}
-
-/* Footer */
-footer {
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border);
-    padding: 40px 5%;
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Dark / Light Mode Toggle
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    }
-
-    // Restore Theme Preference
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.setAttribute('data-theme', savedTheme);
-});
-
-// Add to Cart AJAX Functionality
-function addToCart(productId) {
-    fetch('cart.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `action=add&product_id=${productId}&quantity=1`
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success) {
-            alert('Product added to your bag.');
-            document.getElementById('cart-count').innerText = data.total_items;
-        }
-    })
-    .catch(err => console.error(err));
-}
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-require_once __DIR__ . '/../config/db.php';
-
-// Fetch global site settings
-$stmt = $pdo->query("SELECT * FROM settings WHERE id = 1");
-$settings = $stmt->fetch();
-
-$cart_count = 0;
-if (isset($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $item) {
-        $cart_count += $item['quantity'];
-    }
-}
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($settings['store_name'] ?? 'Aura Store') ?></title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-
-<div class="top-bar">
-    FREE SHIPPING ON ALL ORDERS OVER ₹5,000 | EXPRESS DELIVERY WORLDWIDE
-</div>
-
-<nav class="navbar">
-    <a href="index.php" class="logo"><?= htmlspecialchars($settings['store_name'] ?? 'AURA') ?></a>
-    <div class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="index.php#featured">Featured</a>
-        <a href="index.php#products">Collection</a>
-    </div>
-    <div class="nav-icons">
-        <span id="theme-toggle" style="cursor:pointer;">🌙 / ☀️</span>
-        <a href="cart.php">Bag (<span id="cart-count"><?= $cart_count ?></span>)</a>
-    </div>
-</nav>
-<footer>
-    <p>&copy; <?= date('Y') ?> <?= htmlspecialchars($settings['store_name']) ?>. All Rights Reserved.</p>
-    <p style="margin-top:8px;"><?= htmlspecialchars($settings['store_address']) ?></p>
-</footer>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
-<?php 
-require_once 'includes/header.php'; 
-
-// Fetch Featured Products
-$stmt = $pdo->query("SELECT * FROM products ORDER BY id DESC LIMIT 8");
-$products = $stmt->fetchAll();
-?>
-
-<div class="hero" style="background-image: url('<?= htmlspecialchars($settings['hero_banner']) ?>');">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>NEW SEASON ARRIVALS</h1>
-        <p style="margin-bottom:20px;">Discover timeless luxury apparel crafted for modern living.</p>
-        <a href="#products" class="btn">Explore Collection</a>
-    </div>
-</div>
-
-<div class="container" id="products">
-    <h2 class="section-title">Curated Selection</h2>
-    <div class="grid">
-        <?php foreach ($products as $p): ?>
-            <div class="product-card">
-                <a href="product.php?id=<?= $p['id'] ?>">
-                    <img src="<?= htmlspecialchars($p['main_image']) ?>" alt="<?= htmlspecialchars($p['name']) ?>">
-                </a>
-                <div class="product-info">
-                    <a href="product.php?id=<?= $p['id'] ?>" class="product-title"><?= htmlspecialchars($p['name']) ?></a>
-                    <span class="price">₹<?= number_format($p['price'], 2) ?></span>
-                    <?php if($p['compare_price'] > 0): ?>
-                        <span class="compare-price">₹<?= number_format($p['compare_price'], 2) ?></span>
-                    <?php endif; ?>
-                    <div style="margin-top:15px;">
-                        <button onclick="addToCart(<?= $p['id'] ?>)" class="btn" style="width:100%; font-size:12px;">Add to Bag</button>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-<?php
-session_start();
-require_once 'config/db.php';
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
-// Handle AJAX Request
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    header('Content-Type: application/json');
-    
-    if ($_POST['action'] === 'add') {
-        $p_id = (int)$_POST['product_id'];
-        $qty  = (int)($_POST['quantity'] ?? 1);
-        
-        if (isset($_SESSION['cart'][$p_id])) {
-            $_SESSION['cart'][$p_id]['quantity'] += $qty;
-        } else {
-            $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-            $stmt->execute([$p_id]);
-            $product = $stmt->fetch();
-            
-            if ($product) {
-                $_SESSION['cart'][$p_id] = [
-                    'id' => $product['id'],
-                    'name' => $product['name'],
-                    'price' => $product['price'],
-                    'image' => $product['main_image'],
-                    'quantity' => $qty
-                ];
-            }
-        }
-        
-        $total_items = array_sum(array_column($_SESSION['cart'], 'quantity'));
-        echo json_encode(['success' => true, 'total_items' => $total_items]);
-        exit;
-    }
-}
-
-require_once 'includes/header.php';
-?>
-
-<div class="container" style="min-height: 60vh;">
-    <h2 class="section-title">Your Shopping Bag</h2>
-    
-    <?php if (empty($_SESSION['cart'])): ?>
-        <p style="text-align: center;">Your bag is empty. <a href="index.php">Continue Shopping</a></p>
-    <?php else: ?>
-        <table style="width:100%; border-collapse: collapse; margin-bottom: 30px;">
-            <thead>
-                <tr style="border-bottom: 1px solid var(--border); text-align: left;">
-                    <th style="padding: 10px;">Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                $grand_total = 0;
-                foreach ($_SESSION['cart'] as $item): 
-                    $subtotal = $item['price'] * $item['quantity'];
-                    $grand_total += $subtotal;
-                ?>
-                <tr style="border-bottom: 1px solid var(--border);">
-                    <td style="padding: 15px 10px; display:flex; align-items:center;">
-                        <img src="<?= htmlspecialchars($item['image']) ?>" style="width: 60px; height: 80px; object-fit: cover; margin-right: 15px;">
-                        <?= htmlspecialchars($item['name']) ?>
-                    </td>
-                    <td>₹<?= number_format($item['price'], 2) ?></td>
-                    <td><?= $item['quantity'] ?></td>
-                    <td>₹<?= number_format($subtotal, 2) ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <div style="text-align: right;">
-            <h3>Total: ₹<?= number_format($grand_total, 2) ?></h3>
-            <a href="checkout.php" class="btn" style="margin-top: 15px;">Proceed to Checkout</a>
-        </div>
-    <?php endif; ?>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-<?php
-session_start();
-require_once 'config/db.php';
-
-if (empty($_SESSION['cart'])) {
-    header("Location: index.php");
-    exit;
-}
-
-$grand_total = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $grand_total += $item['price'] * $item['quantity'];
-}
-
-require_once 'includes/header.php';
-?>
-
-<div class="container">
-    <h2 class="section-title">Secure Checkout</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-        
-        <form action="process-order.php" method="POST">
-            <h3>Shipping Details</h3>
-            <div style="margin-top:15px;">
-                <label>Full Name</label>
-                <input type="text" name="customer_name" required style="width:100%; padding:10px; margin-top:5px;">
-            </div>
-            <div style="margin-top:15px;">
-                <label>Email Address</label>
-                <input type="email" name="customer_email" required style="width:100%; padding:10px; margin-top:5px;">
-            </div>
-            <div style="margin-top:15px;">
-                <label>Phone Number</label>
-                <input type="text" name="customer_phone" required style="width:100%; padding:10px; margin-top:5px;">
-            </div>
-            <div style="margin-top:15px;">
-                <label>Shipping Address</label>
-                <textarea name="shipping_address" required style="width:100%; padding:10px; margin-top:5px; height:80px;"></textarea>
-            </div>
-
-            <h3 style="margin-top:30px;">Payment Gateway</h3>
-            <div style="margin-top: 10px;">
-                <input type="radio" id="razorpay" name="payment_method" value="Razorpay/UPI" checked>
-                <label for="razorpay">Razorpay / UPI / NetBanking</label>
-            </div>
-            <div style="margin-top: 5px;">
-                <input type="radio" id="cod" name="payment_method" value="Cash On Delivery">
-                <label for="cod">Cash on Delivery (COD)</label>
-            </div>
-
-            <button type="submit" class="btn" style="width:100%; margin-top:20px;">Complete Order (Pay ₹<?= number_format($grand_total, 2) ?>)</button>
-        </form>
-
-        <div>
-            <h3>Order Summary</h3>
-            <div style="margin-top:15px; background:var(--bg-secondary); padding:20px; border:1px solid var(--border);">
-                <?php foreach ($_SESSION['cart'] as $item): ?>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                        <span><?= htmlspecialchars($item['name']) ?> (x<?= $item['quantity'] ?>)</span>
-                        <span>₹<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
-                    </div>
-                <?php endforeach; ?>
-                <hr style="margin: 15px 0;">
-                <div style="display:flex; justify-content:space-between; font-weight:bold;">
-                    <span>Total</span>
-                    <span>₹<?= number_format($grand_total, 2) ?></span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-<?php
-session_start();
-require_once 'config/db.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['cart'])) {
-    
-    $order_num = "AURA-" . strtoupper(uniqid());
-    $name = $_POST['customer_name'];
-    $email = $_POST['customer_email'];
-    $phone = $_POST['customer_phone'];
-    $address = $_POST['shipping_address'];
-    $payment = $_POST['payment_method'];
-    
-    $total = 0;
-    foreach ($_SESSION['cart'] as $item) {
-        $total += $item['price'] * $item['quantity'];
-    }
-
-    $stmt = $pdo->prepare("INSERT INTO orders (order_number, customer_name, customer_email, customer_phone, shipping_address, total_amount, payment_method, payment_status) VALUES (?, ?, ?, ?, ?, ?, ?, 'Paid')");
-    $stmt->execute([$order_num, $name, $email, $phone, $address, $total, $payment]);
-    $order_id = $pdo->lastInsertId();
-
-    $itemStmt = $pdo->prepare("INSERT INTO order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)");
-    foreach ($_SESSION['cart'] as $item) {
-        $itemStmt->execute([$order_id, $item['id'], $item['name'], $item['price'], $item['quantity']]);
-    }
-
-    // Clear cart and redirect
-    unset($_SESSION['cart']);
-    header("Location: order-success.php?order_id=" . $order_num);
-    exit;
-}
-<?php 
-require_once 'includes/header.php'; 
-$order_id = htmlspecialchars($_GET['order_id'] ?? 'N/A');
-?>
-
-<div class="container" style="text-align: center; padding: 100px 5%;">
-    <h1 style="color: var(--gold); font-size: 40px; margin-bottom: 20px;">Thank You For Your Order</h1>
-    <p>Your order number is: <strong><?= $order_id ?></strong></p>
-    <p style="margin-top: 10px; color: var(--text-secondary);">We have sent a confirmation email containing invoice details to your email address.</p>
-    <a href="index.php" class="btn" style="margin-top: 30px;">Continue Shopping</a>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-<?php
-session_start();
-require_once '../config/db.php';
-
-$message = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $sku = $_POST['sku'];
-    $price = $_POST['price'];
-    $compare_price = $_POST['compare_price'];
-    $desc = $_POST['description'];
-    $category_id = $_POST['category_id'];
-    
-    // Image Upload Handling
-    $image_path = 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800'; // Default fallback
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-        $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        $filename = time() . '_' . uniqid() . '.' . $ext;
-        $target = '../assets/uploads/' . $filename;
-        
-        if (!is_dir('../assets/uploads')) {
-            mkdir('../assets/uploads', 0777, true);
-        }
-        
-        if (move_uploaded_filename($_FILES['image']['tmp_name'], $target)) {
-            $image_path = 'assets/uploads/' . $filename;
-        }
-    }
-
-    $stmt = $pdo->prepare("INSERT INTO products (category_id, name, sku, description, price, compare_price, main_image) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    if ($stmt->execute([$category_id, $name, $sku, $desc, $price, $compare_price, $image_path])) {
-        $message = "Product added successfully!";
-    }
-}
-
-// Fetch categories
-$categories = $pdo->query("SELECT * FROM categories")->fetchAll();
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard - Add Product</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>AURA LUXURY | Premium Fashion Store</title>
     <style>
-        .admin-form { max-width: 600px; margin: 40px auto; background: var(--bg-secondary); padding: 30px; border:1px solid var(--border); }
-        .admin-form input, .admin-form textarea, .admin-form select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border); }
+        :root {
+            --bg-color: #ffffff;
+            --card-bg: #f8f9fa;
+            --text-color: #111111;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
+            --gold: #c5a059;
+            --accent: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --border-color: #2a2a2a;
+            --accent: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Announcement Bar */
+        .top-bar {
+            background: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: var(--bg-color);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .nav-links a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            background: var(--gold);
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 50%;
+            margin-left: 3px;
+        }
+
+        /* Hero Banner */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: var(--accent);
+            color: var(--bg-color);
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        /* Container & Grid */
+        .container {
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .compare-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .add-btn {
+            margin-top: 15px;
+            width: 100%;
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+        }
+
+        .add-btn:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Cart Drawer / Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: flex-end;
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 90px;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 50px 5%;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="navbar">
-    <a href="add-product.php" class="logo">AURA ADMIN</a>
-    <a href="../index.php" target="_blank">View Store front</a>
-</div>
-
-<div class="container">
-    <div class="admin-form">
-        <h2>Add New Product</h2>
-        <?php if($message): ?>
-            <p style="color: green; margin-bottom: 15px;"><?= $message ?></p>
-        <?php endif; ?>
-
-        <form action="" method="POST" enctype="multipart/form-data">
-            <label>Product Name</label>
-            <input type="text" name="name" required>
-
-            <label>SKU</label>
-            <input type="text" name="sku" required>
-
-            <label>Category</label>
-            <select name="category_id" required>
-                <?php foreach($categories as $cat): ?>
-                    <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
-
-            <label>Price (INR ₹)</label>
-            <input type="number" step="0.01" name="price" required>
-
-            <label>Compare Price (Original Price before discount)</label>
-            <input type="number" step="0.01" name="compare_price">
-
-            <label>Description</label>
-            <textarea name="description" rows="4"></textarea>
-
-            <label>Product Main Image</label>
-            <input type="file" name="image" accept="image/*">
-
-            <button type="submit" class="btn" style="width: 100%;">Save Product</button>
-        </form>
+    <!-- Top Announcement -->
+    <div class="top-bar">
+        FREE SHIPPING ON ALL ORDERS OVER ₹5,000 | LUXURY COLLECTION 2026
     </div>
-</div>
 
+    <!-- Header / Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">AURA</a>
+        <div class="nav-links">
+            <a href="#featured">Featured</a>
+            <a href="#collection">Collection</a>
+            <a href="#about">About Us</a>
+        </div>
+        <div class="nav-icons">
+            <span id="theme-toggle" title="Toggle Theme">🌙</span>
+            <div onclick="toggleCart()">
+                <span>🛍️ Bag</span>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>AUTUMN / WINTER 2026</h1>
+            <p>Handcrafted Italian Silk & Pure Leather Apparel</p>
+            <a href="#collection" class="btn">Explore Collection</a>
+        </div>
+    </div>
+
+    <!-- Featured Products Grid -->
+    <div class="container" id="collection">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="grid" id="product-list">
+            <!-- JavaScript will render products here dynamically -->
+        </div>
+    </div>
+
+    <!-- Cart Modal Side-Drawer -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <h2>Your Shopping Bag</h2>
+                    <span class="close-btn" onclick="toggleCart()">&times;</span>
+                </div>
+                <div id="cart-items-container">
+                    <p style="margin-top:20px; text-align:center; color: var(--text-muted);">Your bag is currently empty.</p>
+                </div>
+            </div>
+
+            <div>
+                <hr style="border-color: var(--border-color); margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 20px;">
+                    <span>Total:</span>
+                    <span id="cart-total">₹0.00</span>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="checkout()">Proceed To Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="about">
+        <p><strong>AURA LUXURY STORE</strong></p>
+        <p style="margin: 10px 0;">123 Fashion Street, New Delhi, India | Support: support@auraluxury.com</p>
+        <p>&copy; 2026 AURA Inc. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Sample Products Array with Unsplash Images
+        const products = [
+            {
+                id: 1,
+                name: "Italian Tailored Silk Suit",
+                price: 45000,
+                comparePrice: 52000,
+                image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800"
+            },
+            {
+                id: 2,
+                name: "Classic Black Tuxedo Jacket",
+                price: 32000,
+                comparePrice: 38000,
+                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800"
+            },
+            {
+                id: 3,
+                name: "Luxury Leather Overcoat",
+                price: 28000,
+                comparePrice: 34000,
+                image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?q=80&w=800"
+            },
+            {
+                id: 4,
+                name: "Handcrafted Leather Boots",
+                price: 18500,
+                comparePrice: 22000,
+                image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=800"
+            }
+        ];
+
+        let cart = [];
+
+        // Render Products
+        function renderProducts() {
+            const container = document.getElementById('product-list');
+            container.innerHTML = products.map(p => `
+                <div class="product-card">
+                    <img src="${p.image}" alt="${p.name}">
+                    <div class="product-info">
+                        <div class="product-title">${p.name}</div>
+                        <div>
+                            <span class="price">₹${p.price.toLocaleString('en-IN')}</span>
+                            <span class="compare-price">₹${p.comparePrice.toLocaleString('en-IN')}</span>
+                        </div>
+                        <button class="btn add-btn" onclick="addToCart(${p.id})">Add To Bag</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add Item to Cart
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        // Update Cart Drawer & Badge Count
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            document.getElementById('cart-count').innerText = totalItems;
+            document.getElementById('cart-total').innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="margin-top:20px; text-align:center; color: var(--text-muted);">Your bag is currently empty.</p>`;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div style="flex-grow:1;">
+                            <div style="font-weight:bold; font-size:14px;">${item.name}</div>
+                            <div style="color:var(--gold); font-size:13px; margin-top:4px;">₹${item.price.toLocaleString('en-IN')} x ${item.qty}</div>
+                        </div>
+                        <span onclick="removeFromCart(${item.id})" style="cursor:pointer; font-size:18px;">🗑️</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Remove Item
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        // Toggle Modal
+        function toggleCart(forceOpen = false) {
+            const modal = document.getElementById('cart-modal');
+            if (forceOpen) {
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            }
+        }
+
+        // Checkout Button
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your bag is empty!");
+                return;
+            }
+            alert("Order placed successfully! Thank you for shopping with AURA.");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // Dark / Light Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeToggleBtn.innerText = '🌙';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerText = '☀️';
+            }
+        });
+
+        // Initialize Page
+        renderProducts();
+    </script>
 </body>
 </html>
