@@ -15,8 +15,8 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --pay-btn: #0c2340;
-            --pay-btn-hover: #1e3a8a;
+            --pay-btn: #0f172a;
+            --pay-btn-hover: #1e293b;
             --whatsapp: #25d366;
             --border-color: #e2e8f0;
         }
@@ -242,8 +242,8 @@
 
         .add-btn {
             grid-column: 1 / -1;
-            background: var(--primary);
-            color: #fff;
+            background: var(--accent);
+            color: #000;
             border: none;
             padding: 14px;
             border-radius: 6px;
@@ -344,7 +344,7 @@
         }
 
         .btn-pay:hover {
-            background: var(--pay-btn-hover);
+            background: #1e293b;
         }
 
         .social-bar {
@@ -409,12 +409,6 @@
             padding: 40px 6% 20px;
             margin-top: 70px;
             text-align: center;
-        }
-
-        .copyright {
-            padding-top: 15px;
-            border-top: 1px solid #334155;
-            font-size: 12px;
         }
     </style>
 </head>
@@ -482,7 +476,7 @@
             </div>
         </div>
 
-        <!-- Add Product Admin Box -->
+        <!-- Add Product Admin Form -->
         <div class="admin-box" id="admin">
             <h3>➕ Add New Product (नया सामान जोड़ें)</h3>
             <form id="addProductForm" class="form-grid">
@@ -513,13 +507,13 @@
                 </div>
                 <div class="form-group">
                     <label>Payment Gateway Link (Razorpay / UPI Payment Link)</label>
-                    <input type="url" id="pRazorpay" placeholder="https://rzp.io/l/..." required>
+                    <input type="url" id="pPaymentLink" placeholder="https://rzp.io/l/..." required>
                 </div>
                 <button type="submit" class="add-btn">Add Product To Store</button>
             </form>
         </div>
 
-        <!-- Featured Products -->
+        <!-- Featured Products Grid -->
         <div class="section-title" id="products">
             <h2>Trending Women Collection</h2>
         </div>
@@ -538,7 +532,7 @@
                         <span class="price-now">₹899</span>
                         <span class="price-was">₹2,499</span>
                     </div>
-                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
+                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy Now (Pay Online)</a>
                 </div>
             </div>
 
@@ -554,7 +548,7 @@
                         <span class="price-now">₹649</span>
                         <span class="price-was">₹1,599</span>
                     </div>
-                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
+                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy Now (Pay Online)</a>
                 </div>
             </div>
 
@@ -573,7 +567,7 @@
         <div class="policy-grid" id="policies">
             <div class="policy-card">
                 <h4>🔄 Return & Exchange Policy</h4>
-                <p>हम 7 दिनों की आसान रिटर्न पॉलिसी देते हैं। कोई भी समस्या होने पर आसान रिटर्न/रिफंड सुविधा उपलब्ध है।</p>
+                <p>हम 7 दिनों की आसान रिटर्न पॉलिसी देते हैं। किसी भी समस्या के लिए 24/7 सपोर्ट उपलब्ध है।</p>
             </div>
             <div class="policy-card">
                 <h4>🚚 Fast Delivery</h4>
@@ -581,7 +575,7 @@
             </div>
             <div class="policy-card">
                 <h4>🛡️ Trusted Shopping</h4>
-                <p>100% सेफ़ और वेरिफाइड पेमेंट्स (SSL Secure Gateway Integration)।</p>
+                <p>100% सुरक्षित ऑनलाइन पेमेंट (SSL Encryption & Instant Checkout)।</p>
             </div>
         </div>
 
@@ -600,7 +594,7 @@
             const price = document.getElementById('pPrice').value;
             const oldPrice = document.getElementById('pOldPrice').value;
             const img = document.getElementById('pImg').value;
-            const rzp = document.getElementById('pRazorpay').value || '#';
+            const payLink = document.getElementById('pPaymentLink').value || '#';
 
             const container = document.getElementById('productContainer');
 
@@ -617,13 +611,13 @@
                         <span class="price-now">₹${price}</span>
                         <span class="price-was">₹${oldPrice}</span>
                     </div>
-                    <a href="${rzp}" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
+                    <a href="${payLink}" target="_blank" class="btn-pay">💳 Buy Now (Pay Online)</a>
                 </div>
             `;
 
             container.prepend(card);
             this.reset();
-            alert('🎉 नया प्रोडक्ट Payment Gateway लिंक के साथ जुड़ गया है!');
+            alert('🎉 नया प्रोडक्ट ऑनलाइन पेमेंट लिंक के साथ लाइव हो गया है!');
         });
     </script>
 </body>
