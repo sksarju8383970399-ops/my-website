@@ -15,8 +15,8 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --meesho: #9f2089;
-            --meesho-hover: #80186d;
+            --pay-btn: #0c2340;
+            --pay-btn-hover: #1e3a8a;
             --whatsapp: #25d366;
             --border-color: #e2e8f0;
         }
@@ -39,7 +39,6 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Top Announcement Bar */
         .announcement-bar {
             background: var(--primary);
             color: #fff;
@@ -50,7 +49,6 @@
             text-transform: uppercase;
         }
 
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
@@ -92,10 +90,9 @@
             color: var(--accent);
         }
 
-        /* Hero Banner */
         .hero-banner {
             position: relative;
-            height: 75vh;
+            height: 70vh;
             background: url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             display: flex;
             align-items: center;
@@ -142,7 +139,6 @@
             border-radius: 50px;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 50px auto;
@@ -160,7 +156,6 @@
             margin-bottom: 8px;
         }
 
-        /* Category Boxes */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -203,7 +198,6 @@
             margin-bottom: 8px;
         }
 
-        /* Meesho Add Product Admin Form */
         .admin-box {
             background: #fff;
             padding: 30px;
@@ -248,7 +242,7 @@
 
         .add-btn {
             grid-column: 1 / -1;
-            background: var(--meesho);
+            background: var(--primary);
             color: #fff;
             border: none;
             padding: 14px;
@@ -261,14 +255,9 @@
             margin-top: 10px;
         }
 
-        .add-btn:hover {
-            background: var(--meesho-hover);
-        }
-
-        /* Product Cards Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -335,29 +324,29 @@
             text-decoration: line-through;
         }
 
-        .btn-meesho {
+        .btn-pay {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             border-radius: 6px;
             font-weight: 700;
             font-size: 13px;
             text-align: center;
             text-decoration: none;
             color: #fff;
-            background: var(--meesho);
+            background: var(--pay-btn);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             text-transform: uppercase;
             transition: background 0.3s;
+            margin-top: auto;
         }
 
-        .btn-meesho:hover {
-            background: var(--meesho-hover);
+        .btn-pay:hover {
+            background: var(--pay-btn-hover);
         }
 
-        /* Social Section */
         .social-bar {
             background: #fff;
             padding: 30px;
@@ -389,7 +378,6 @@
         .s-tw { background: #000; }
         .s-wa { background: var(--whatsapp); }
 
-        /* Policy Section */
         .policy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -415,7 +403,6 @@
             color: var(--text-muted);
         }
 
-        /* Footer */
         footer {
             background: var(--primary);
             color: #94a3b8;
@@ -434,7 +421,7 @@
 <body>
 
     <div class="announcement-bar">
-        ✨ Exclusive Women's Collection | Direct Meesho Store Integration ✨
+        ✨ Exclusive Women's Collection | Safe & Instant Online Payments ✨
     </div>
 
     <header>
@@ -443,13 +430,12 @@
             <ul>
                 <li><a href="#categories">Categories</a></li>
                 <li><a href="#products">Collection</a></li>
-                <li><a href="#admin">Add Meesho Product</a></li>
+                <li><a href="#admin">Add Product</a></li>
                 <li><a href="#policies">Return Policy</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Banner -->
     <section class="hero-banner">
         <div class="hero-overlay">
             <h3>WOMEN'S ETHNIC & MODERN FASHION</h3>
@@ -460,7 +446,6 @@
 
     <div class="container">
 
-        <!-- Categories Section (अलग-अलग खाने) -->
         <div class="section-title" id="categories">
             <h2>Shop By Category</h2>
             <p>महिलाओं के कपड़ों के बेहतरीन खाने</p>
@@ -497,10 +482,10 @@
             </div>
         </div>
 
-        <!-- Add Meesho Product Admin Form -->
+        <!-- Add Product Admin Box -->
         <div class="admin-box" id="admin">
-            <h3>🛍️ Add Product Directly From Meesho</h3>
-            <form id="addMeeshoProductForm" class="form-grid">
+            <h3>➕ Add New Product (नया सामान जोड़ें)</h3>
+            <form id="addProductForm" class="form-grid">
                 <div class="form-group">
                     <label>Product Category</label>
                     <select id="pCategory" required>
@@ -523,12 +508,12 @@
                     <input type="text" id="pOldPrice" placeholder="1299" required>
                 </div>
                 <div class="form-group">
-                    <label>Image URL (Meesho Product Photo Link)</label>
+                    <label>Product Photo URL</label>
                     <input type="url" id="pImg" placeholder="https://..." required>
                 </div>
                 <div class="form-group">
-                    <label>Meesho Product Buy Link</label>
-                    <input type="url" id="pMeesho" placeholder="https://meesho.com/..." required>
+                    <label>Payment Gateway Link (Razorpay / UPI Payment Link)</label>
+                    <input type="url" id="pRazorpay" placeholder="https://rzp.io/l/..." required>
                 </div>
                 <button type="submit" class="add-btn">Add Product To Store</button>
             </form>
@@ -553,7 +538,7 @@
                         <span class="price-now">₹899</span>
                         <span class="price-was">₹2,499</span>
                     </div>
-                    <a href="https://www.meesho.com" target="_blank" class="btn-meesho">🛍️ Order On Meesho</a>
+                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
                 </div>
             </div>
 
@@ -569,13 +554,12 @@
                         <span class="price-now">₹649</span>
                         <span class="price-was">₹1,599</span>
                     </div>
-                    <a href="https://www.meesho.com" target="_blank" class="btn-meesho">🛍️ Order On Meesho</a>
+                    <a href="https://razorpay.com" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
                 </div>
             </div>
 
         </div>
 
-        <!-- Social Media Connectivity -->
         <div class="social-bar">
             <h3>🌐 Connect With Us On Social Platforms</h3>
             <div class="social-icons">
@@ -586,11 +570,10 @@
             </div>
         </div>
 
-        <!-- Policies Section -->
         <div class="policy-grid" id="policies">
             <div class="policy-card">
                 <h4>🔄 Return & Exchange Policy</h4>
-                <p>हम 7 दिनों की आसान रिटर्न पॉलिसी देते हैं। कोई भी समस्या होने पर Meesho के ज़रिये आसान रिटर्न/रिफंड सुविधा उपलब्ध है।</p>
+                <p>हम 7 दिनों की आसान रिटर्न पॉलिसी देते हैं। कोई भी समस्या होने पर आसान रिटर्न/रिफंड सुविधा उपलब्ध है।</p>
             </div>
             <div class="policy-card">
                 <h4>🚚 Fast Delivery</h4>
@@ -598,7 +581,7 @@
             </div>
             <div class="policy-card">
                 <h4>🛡️ Trusted Shopping</h4>
-                <p>100% सेफ़ और वेरिफाइड मीशो प्लेटफॉर्म के जरिए सुरक्षित खरीदारी करें।</p>
+                <p>100% सेफ़ और वेरिफाइड पेमेंट्स (SSL Secure Gateway Integration)।</p>
             </div>
         </div>
 
@@ -608,9 +591,8 @@
         <p>© 2026 SYMMETRY Premium Women Fashion. All Rights Reserved.</p>
     </footer>
 
-    <!-- JS Form Script -->
     <script>
-        document.getElementById('addMeeshoProductForm').addEventListener('submit', function(e) {
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const category = document.getElementById('pCategory').value;
@@ -618,7 +600,7 @@
             const price = document.getElementById('pPrice').value;
             const oldPrice = document.getElementById('pOldPrice').value;
             const img = document.getElementById('pImg').value;
-            const msh = document.getElementById('pMeesho').value || '#';
+            const rzp = document.getElementById('pRazorpay').value || '#';
 
             const container = document.getElementById('productContainer');
 
@@ -635,15 +617,14 @@
                         <span class="price-now">₹${price}</span>
                         <span class="price-was">₹${oldPrice}</span>
                     </div>
-                    <a href="${msh}" target="_blank" class="btn-meesho">🛍️ Order On Meesho</a>
+                    <a href="${rzp}" target="_blank" class="btn-pay">💳 Buy via Payment Gateway</a>
                 </div>
             `;
 
             container.prepend(card);
             this.reset();
-            alert('🎉 नया Meesho प्रोडक्ट आपकी वेबसाइट पर जुड़ गया है!');
+            alert('🎉 नया प्रोडक्ट Payment Gateway लिंक के साथ जुड़ गया है!');
         });
     </script>
 </body>
 </html>
-
