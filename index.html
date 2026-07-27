@@ -486,41 +486,80 @@
         </div>
 
         <!-- Add Product Admin Form -->
-        <div class="admin-box" id="admin">
-            <h3>➕ Add New Product (नया सामान जोड़ें)</h3>
-            <form id="addProductForm" class="form-grid">
-                <div class="form-group">
-                    <label>Product Category</label>
-                    <select id="pCategory" required>
-                        <option value="Sarees">Saree</option>
-                        <option value="Kurtis & Suits">Kurti / Suit</option>
-                        <option value="Western Wear">Western Wear</option>
-                        <option value="Lehenga">Lehenga / Party Wear</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" id="pName" placeholder="e.g. Silk Printed Saree" required>
-                </div>
-                <div class="form-group">
-                    <label>Selling Price (₹)</label>
-                    <input type="text" id="pPrice" placeholder="499" required>
-                </div>
-                <div class="form-group">
-                    <label>MRP / Old Price (₹)</label>
-                    <input type="text" id="pOldPrice" placeholder="1299" required>
-                </div>
-                <div class="form-group">
-                    <label>Product Photo URL</label>
-                    <input type="url" id="pImg" placeholder="https://..." required>
-                </div>
-                <div class="form-group">
-                    <label>Payment Gateway Link (Razorpay / UPI Payment Link)</label>
-                    <input type="url" id="pPaymentLink" placeholder="https://rzp.io/l/..." required>
-                </div>
-                <button type="submit" class="add-btn">Add Product To Store</button>
-            </form>
-        </div>
+        
+<div class="product-add-container" style="max-width: 650px; margin: 30px auto; padding: 25px; background: #ffffff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
+  
+  <h2 style="text-align: center; color: #333; margin-bottom: 20px;">+ ADD NEW PRODUCT (नया प्रोडक्ट जोड़ें)</h2>
+
+  <form id="addProductForm">
+    
+    <!-- 1. प्रोडक्ट का नाम -->
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Product Title (प्रोडक्ट का नाम)</label>
+      <input type="text" id="pName" placeholder="उदा. Silk Banarasi Saree" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
+
+    <!-- 2. कैटेगरी -->
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Category (कैटेगरी)</label>
+      <select id="pCategory" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <option value="Saree">Designer Sarees</option>
+        <option value="Kurtis">Kurtis & Suit Sets</option>
+        <option value="Western">Western Wear</option>
+        <option value="Lehenga">Lehenga & Party Wear</option>
+      </select>
+    </div>
+
+    <!-- 3. प्राइस और डिस्काउंट -->
+    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+      <div style="flex: 1;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Selling Price (₹)</label>
+        <input type="number" id="pPrice" placeholder="499" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+      </div>
+      <div style="flex: 1;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">MRP / Old Price (₹)</label>
+        <input type="number" id="pOldPrice" placeholder="1299" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+      </div>
+    </div>
+
+    <!-- 4. इन्वेंटरी (स्टॉक) और साइज़ (Shopify Style) -->
+    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+      <div style="flex: 1;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Available Size (साइज़)</label>
+        <select id="pSize" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+          <option value="Free Size">Free Size (साड़ी/दुपट्टा)</option>
+          <option value="S">S (Small)</option>
+          <option value="M">M (Medium)</option>
+          <option value="L">L (Large)</option>
+          <option value="XL">XL (Extra Large)</option>
+          <option value="XXL">XXL</option>
+          <option value="All Sizes">All Sizes Available (S, M, L, XL)</option>
+        </select>
+      </div>
+      <div style="flex: 1;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Inventory (स्टॉक की मात्रा)</label>
+        <input type="number" id="pStock" placeholder="उदा. 10" min="0" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+      </div>
+    </div>
+
+    <!-- 5. डायरेक्ट फोटो अपलोड (गैलरी से सिलेक्ट करें) -->
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Product Image (गैलरी से फोटो चुनें)</label>
+      <input type="file" id="pImageFile" accept="image/*" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9;">
+    </div>
+
+    <!-- 6. पेमेंट लिंक / Razorpay Link -->
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Payment / WhatsApp Link</label>
+      <input type="url" id="pPayLink" placeholder="https://rzp.io/l/yourlink" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
+
+    <!-- सेव बटन -->
+    <button type="submit" style="width: 100%; padding: 14px; background-color: #d4a373; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">
+      SAVE PRODUCT TO STORE
+    </button>
+  </form>
+</div>
 
         <!-- Featured Products Grid -->
         <div class="section-title" id="products">
