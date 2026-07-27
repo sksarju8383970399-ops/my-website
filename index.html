@@ -268,14 +268,14 @@
     .trust-item h4 { font-size: 1.05rem; margin-bottom: 5px; }
     .trust-item p { font-size: 0.85rem; color: #666; }
 
-    /* Admin Quick Toggle Floating Button */
+    /* Admin Quick Toggle Floating Buttons */
     .admin-toggle {
       position: fixed;
       bottom: 90px;
       right: 25px;
       background: #333;
       color: white;
-      padding: 12px 20px;
+      padding: 10px 18px;
       border-radius: 30px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       cursor: pointer;
@@ -283,7 +283,25 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .orders-toggle {
+      position: fixed;
+      bottom: 145px;
+      right: 25px;
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
       font-weight: 600;
     }
 
@@ -319,7 +337,7 @@
       align-items: center;
     }
 
-    .admin-content, .checkout-content {
+    .admin-content, .checkout-content, .orders-content {
       background: white;
       width: 90%;
       max-width: 600px;
@@ -360,11 +378,46 @@
       margin-bottom: 10px;
       cursor: pointer;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .payment-option input { width: auto; }
+    .payment-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .payment-row input { width: auto; }
+
+    #upiDetailsBox {
+      display: none;
+      margin-top: 8px;
+      padding-left: 24px;
+    }
+
+    /* Social Icons Styling */
+    .social-icons-box {
+      display: flex;
+      gap: 15px;
+      margin-top: 12px;
+    }
+    .social-icons-box a {
+      background: #222;
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .social-icons-box a:hover {
+      background: var(--secondary-color);
+      color: var(--dark-text);
+    }
 
     /* Footer */
     footer { background: #111; color: #ccc; padding: 50px 20px 20px; font-size: 0.9rem; }
@@ -554,30 +607,43 @@
       <form onsubmit="processPayment(event)">
         <div class="form-group">
           <label>Full Name</label>
-          <input type="text" placeholder="Saurabh Kumar" required>
+          <input type="text" id="custName" placeholder="Saurabh Kumar" required>
         </div>
         <div class="form-group">
           <label>Delivery Address</label>
-          <input type="text" placeholder="House No, Road, City, Pincode" required>
+          <input type="text" id="custAddress" placeholder="House No, Road, City, Pincode" required>
         </div>
         <div class="form-group">
           <label>Phone Number</label>
-          <input type="tel" value="8383970399" required>
+          <input type="tel" id="custPhone" value="8383970399" required>
         </div>
 
         <h3 style="margin: 15px 0 10px; font-size: 1.1rem;">Select Payment Option</h3>
         
+        <!-- UPI Option with Custom ID Input -->
         <label class="payment-option">
-          <input type="radio" name="payment" value="UPI" checked>
-          <i class="fa-solid fa-qrcode" style="color: #25d366;"></i> UPI / PhonePe / GPay / Paytm
+          <div class="payment-row">
+            <input type="radio" name="payment" value="UPI" checked onclick="toggleUpiInput(true)">
+            <i class="fa-solid fa-qrcode" style="color: #25d366;"></i> UPI (PhonePe / GPay / Paytm)
+          </div>
+          <div id="upiDetailsBox">
+            <input type="text" id="userUpiId" placeholder="Enter UPI ID (e.g. 8383970399@paytm)" style="font-size: 0.85rem; padding: 6px;">
+            <small style="color: #666; display: block; margin-top: 3px;">Merchant UPI: <b>8383970399@paytm</b></small>
+          </div>
         </label>
+
         <label class="payment-option">
-          <input type="radio" name="payment" value="Card">
-          <i class="fa-regular fa-credit-card" style="color: #007bff;"></i> Debit / Credit Card
+          <div class="payment-row">
+            <input type="radio" name="payment" value="Card" onclick="toggleUpiInput(false)">
+            <i class="fa-regular fa-credit-card" style="color: #007bff;"></i> Debit / Credit Card
+          </div>
         </label>
+
         <label class="payment-option">
-          <input type="radio" name="payment" value="COD">
-          <i class="fa-solid fa-money-bill-wave" style="color: #2e7d32;"></i> Cash on Delivery (COD)
+          <div class="payment-row">
+            <input type="radio" name="payment" value="COD" onclick="toggleUpiInput(false)">
+            <i class="fa-solid fa-money-bill-wave" style="color: #2e7d32;"></i> Cash on Delivery (COD)
+          </div>
         </label>
 
         <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px;">Pay Now & Place Order</button>
@@ -585,7 +651,11 @@
     </div>
   </div>
 
-  <!-- Floating Admin Toggle Button -->
+  <!-- Floating Admin & Orders Buttons -->
+  <div class="orders-toggle" onclick="toggleOrdersPanel()">
+    <i class="fa-solid fa-box-open"></i> View Orders (<span id="orderCountBadge">0</span>)
+  </div>
+
   <div class="admin-toggle" onclick="toggleAdminPanel()">
     <i class="fa-solid fa-sliders"></i> Add Product (Admin)
   </div>
@@ -594,7 +664,7 @@
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- Admin Panel Drawer/Modal -->
+  <!-- Admin Panel Modal -->
   <div class="modal-overlay" id="adminModal">
     <div class="admin-content">
       <span class="close-modal" onclick="toggleAdminPanel()">&times;</span>
@@ -633,6 +703,21 @@
     </div>
   </div>
 
+  <!-- View Customer Orders Database Modal -->
+  <div class="modal-overlay" id="ordersModal">
+    <div class="orders-content">
+      <span class="close-modal" onclick="toggleOrdersPanel()">&times;</span>
+      <h2 style="font-family: var(--font-heading); margin-bottom: 15px;">Customer Orders Database</h2>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">यहाँ आपके स्टोर पर आने वाले सभी ऑर्डर सेव रहते हैं:</p>
+      
+      <div id="ordersListContainer" style="max-height: 50vh; overflow-y: auto;">
+        <p style="color:#777; text-align:center; margin-top:20px;">कोई नया ऑर्डर नहीं मिला है।</p>
+      </div>
+      
+      <button onclick="clearAllOrders()" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; margin-top: 15px; cursor: pointer; font-size: 0.85rem;">Clear All Orders</button>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer>
     <div class="footer-container">
@@ -661,7 +746,13 @@
       </div>
       <div class="footer-col">
         <h3>Follow Us</h3>
-        <p>Join our community on Instagram & Facebook for daily outfit inspo.</p>
+        <p>Join our community for daily outfit inspiration.</p>
+        <!-- Instagram & Facebook Links Added Here -->
+        <div class="social-icons-box">
+          <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/918383970399" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -673,6 +764,12 @@
   <script>
     let cartCount = 0;
     let totalPrice = 0;
+    let cartItemsArray = [];
+
+    // Load saved orders count on start
+    document.addEventListener("DOMContentLoaded", () => {
+      updateOrdersBadge();
+    });
 
     // Cart Sliding Toggle
     function toggleCart() {
@@ -684,6 +781,7 @@
     function addToCart(title, price) {
       cartCount++;
       totalPrice += price;
+      cartItemsArray.push({ title, price });
 
       document.getElementById('cartCount').innerText = cartCount;
       document.getElementById('emptyCartMsg').style.display = 'none';
@@ -714,11 +812,108 @@
       document.getElementById('checkoutModal').style.display = 'none';
     }
 
+    function toggleUpiInput(show) {
+      const box = document.getElementById('upiDetailsBox');
+      box.style.display = show ? 'block' : 'none';
+    }
+
+    // Payment & Order Placement Processing (Database Saving)
     function processPayment(e) {
       e.preventDefault();
+      
+      const name = document.getElementById('custName').value;
+      const address = document.getElementById('custAddress').value;
+      const phone = document.getElementById('custPhone').value;
+      
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+      let paymentDetail = paymentMethod;
+      if(paymentMethod === 'UPI') {
+        const upiIdVal = document.getElementById('userUpiId').value || 'Not Entered';
+        paymentDetail = `UPI (${upiIdVal})`;
+      }
+
+      // Create Order Object
+      const newOrder = {
+        id: Date.now().toString().slice(-6),
+        date: new Date().toLocaleString(),
+        name,
+        address,
+        phone,
+        items: [...cartItemsArray],
+        total: totalPrice,
+        payment: paymentDetail
+      };
+
+      // Save to Browser LocalStorage Database
+      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
+      savedOrders.unshift(newOrder); // Add to top
+      localStorage.setItem('aura_store_orders', JSON.stringify(savedOrders));
+
       alert('🎉 बधाई हो! आपका ऑर्डर सफलतापूर्वक प्लेस हो गया है।');
+      
+      // Reset Cart
+      cartCount = 0;
+      totalPrice = 0;
+      cartItemsArray = [];
+      document.getElementById('cartCount').innerText = '0';
+      document.getElementById('cartItemsList.innerHTML') = '<p id="emptyCartMsg" style="color:#777; text-align:center; margin-top:30px;">आपका कार्ट अभी खाली है।</p>';
+      
       closeCheckout();
-      location.reload(); // Refresh page after order
+      updateOrdersBadge();
+      location.reload(); 
+    }
+
+    // Orders Database Panel Handlers
+    function toggleOrdersPanel() {
+      const modal = document.getElementById('ordersModal');
+      if(modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      } else {
+        renderOrdersList();
+        modal.style.display = 'flex';
+      }
+    }
+
+    function updateOrdersBadge() {
+      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
+      document.getElementById('orderCountBadge').innerText = savedOrders.length;
+    }
+
+    function renderOrdersList() {
+      const container = document.getElementById('ordersListContainer');
+      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
+
+      if(savedOrders.length === 0) {
+        container.innerHTML = '<p style="color:#777; text-align:center; margin-top:20px;">कोई नया ऑर्डर नहीं मिला है।</p>';
+        return;
+      }
+
+      let html = '';
+      savedOrders.forEach((ord, index) => {
+        let itemsStr = ord.items.map(i => `${i.title} (₹${i.price})`).join(', ');
+        html += `
+          <div style="background: #f9f6f0; border: 1px solid #e2d7c5; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 0.9rem;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--primary-color);">
+              <span>Order #${ord.id}</span>
+              <span>₹${ord.total}</span>
+            </div>
+            <p style="margin: 4px 0;"><b>Customer:</b> ${ord.name} (${ord.phone})</p>
+            <p style="margin: 4px 0;"><b>Address:</b> ${ord.address}</p>
+            <p style="margin: 4px 0;"><b>Items:</b> ${itemsStr}</p>
+            <p style="margin: 4px 0; color: #2e7d32;"><b>Payment:</b> ${ord.payment}</p>
+            <small style="color: #777;">Placed on: ${ord.date}</small>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function clearAllOrders() {
+      if(confirm("क्या आप सभी ऑर्डर्स का डेटा डिलीट करना चाहते हैं?")) {
+        localStorage.removeItem('aura_store_orders');
+        renderOrdersList();
+        updateOrdersBadge();
+      }
     }
 
     // Admin Panel Modal Handlers
