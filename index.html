@@ -7,6 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <style>
         :root {
             --primary: #0f172a;
@@ -27,28 +30,26 @@
         body {
             background-color: var(--bg-light);
             color: var(--text-main);
-            padding-bottom: 30px;
+            padding-bottom: 40px;
         }
 
-        /* Announcement Bar */
         .announcement-bar {
             background: var(--primary);
             color: #fff;
             text-align: center;
-            padding: 6px;
-            font-size: 10px;
-            letter-spacing: 1px;
+            padding: 8px 15px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: #fff;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            padding: 15px 8%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -56,190 +57,124 @@
 
         .brand-logo {
             font-family: 'Cinzel', serif;
-            font-size: 18px;
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--primary);
             text-decoration: none;
         }
 
-        .admin-nav-btn {
-            background: #f1f5f9;
-            border: 1px solid var(--border-color);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--primary);
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
-        /* Hero Banner */
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .admin-nav-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         .hero-banner {
-            height: 38vh;
-            min-height: 240px;
-            background: url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+            height: 45vh;
+            min-height: 300px;
+            max-height: 500px;
+            background: url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            position: relative;
         }
 
         .hero-overlay {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-        }
-
-        .hero-overlay h3 {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 5px;
-            text-transform: uppercase;
+            padding: 20px;
         }
 
         .hero-overlay h1 {
             font-family: 'Cinzel', serif;
-            font-size: 22px;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
-        .cta-btn {
-            padding: 8px 18px;
-            background: var(--accent);
-            color: #000;
-            font-weight: 700;
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 20px;
-        }
-
-        /* Container & Titles */
         .container {
-            padding: 0 12px;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .section-title {
             text-align: center;
-            margin: 20px 0 12px;
+            margin: 35px 0 20px;
         }
 
         .section-title h2 {
             font-family: 'Cinzel', serif;
-            font-size: 18px;
+            font-size: 24px;
             color: var(--primary);
         }
 
-        /* Grid Setup for Mobile (2 Columns) */
-        .category-grid, .product-grid {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
-        @media (min-width: 640px) {
-            .category-grid, .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 16px;
-            }
+        @media (min-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
-        /* Category Card */
-        .category-card {
-            position: relative;
-            height: 140px;
-            border-radius: 8px;
-            overflow: hidden;
-            text-decoration: none;
+        @media (max-width: 600px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .hero-overlay h1 { font-size: 22px; }
+            header { padding: 12px 15px; }
+            .brand-logo { font-size: 18px; }
+            .nav-links { gap: 8px; }
         }
 
-        .category-card img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-
-        .category-content {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 8px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
-            color: #fff;
-            text-align: center;
-        }
-
-        .category-content h3 { font-size: 12px; }
-
-        /* Product Card */
         .product-card {
             background: #fff;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
         }
 
-        .product-media {
-            height: 180px;
-            background: #f1f5f9;
-        }
+        .product-media { height: 240px; background: #f1f5f9; }
+        @media (max-width: 600px) { .product-media { height: 170px; } }
+        .product-media img { width: 100%; height: 100%; object-fit: cover; }
 
-        .product-media img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-
-        .product-details {
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-category-tag {
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-
-        .product-name {
-            font-size: 12px;
-            font-weight: 600;
-            margin: 2px 0 6px;
-            color: var(--primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-price-row {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            margin-bottom: 8px;
-        }
-
-        .price-now { font-size: 14px; font-weight: 700; color: var(--primary); }
-        .price-was { font-size: 10px; color: var(--text-muted); text-decoration: line-through; }
+        .product-details { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-name { font-size: 13px; font-weight: 600; margin: 4px 0 8px; color: var(--primary); }
+        .product-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+        .price-now { font-size: 16px; font-weight: 700; color: var(--primary); }
 
         .btn-pay {
             width: 100%;
-            padding: 8px 4px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 6px;
             font-weight: 700;
             font-size: 11px;
             text-align: center;
@@ -250,126 +185,148 @@
             margin-top: auto;
         }
 
-        /* MODALS (Admin & Order Popups) */
+        /* CONTACT & TRUST SECTION */
+        .trust-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .trust-card h4 { font-size: 14px; color: var(--primary); margin-bottom: 5px; }
+        .trust-card p { font-size: 11px; color: var(--text-muted); }
+
+        .contact-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-box h3 { font-family: 'Cinzel', serif; margin-bottom: 10px; }
+        .contact-info { font-size: 13px; margin: 8px 0; }
+        .contact-info a { color: var(--primary); font-weight: bold; text-decoration: none; }
+
+        /* MODALS */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 15px;
+            justify-content: center; align-items: center;
+            z-index: 1000; padding: 15px;
         }
 
         .modal-content {
-            background: white;
-            padding: 18px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: white; padding: 22px; border-radius: 12px;
+            width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
         }
 
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; font-weight: 600; font-size: 11px; margin-bottom: 3px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-weight: 600; font-size: 11px; margin-bottom: 4px; }
         .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;
+            width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 5px; font-size: 12px;
         }
 
-        /* Admin Dashboard Tabs */
-        .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
-        .tab-btn { flex: 1; padding: 8px; font-size: 11px; font-weight: bold; border: none; background: #e2e8f0; border-radius: 4px; cursor: pointer; }
-        .tab-btn.active { background: var(--accent); color: #000; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .pay-options { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-online { flex: 1; padding: 10px; background: #2563eb; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .btn-cod { flex: 1; padding: 10px; background: #16a34a; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th, td { padding: 6px; border: 1px solid #e2e8f0; text-align: left; }
-        th { background: #f8fafc; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th, td { padding: 8px; border: 1px solid #e2e8f0; text-align: left; }
 
         footer {
             text-align: center;
-            padding: 20px;
-            font-size: 11px;
+            padding: 25px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-top: 30px;
             border-top: 1px solid var(--border-color);
+            background: #fff;
         }
+
+        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 15px; }
+        .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div class="announcement-bar">
-        ✨ Exclusive Collection | Instant Online Orders ✨
+        ✨ Premium Women Collection | Fast Online Payment Available ✨
     </div>
 
     <header>
         <a href="#" class="brand-logo">SYMMETRY</a>
-        <button class="admin-nav-btn" onclick="openAdminModal()">⚙️ Admin Dashboard</button>
+        <div class="nav-links">
+            <a href="#contact">Contact Us</a>
+            <a href="javascript:void(0)" onclick="openPolicyModal()">Policies</a>
+            <button class="admin-nav-btn" onclick="openAdminModal()">⚙️ Admin</button>
+        </div>
     </header>
 
     <section class="hero-banner">
         <div class="hero-overlay">
-            <h3>Women's Ethnic & Modern</h3>
             <h1>Elegance In Every Detail</h1>
-            <a href="#products" class="cta-btn">Explore Now</a>
         </div>
     </section>
 
     <div class="container">
-
-        <!-- Categories Section -->
-        <div class="section-title">
-            <h2>Shop By Category</h2>
-        </div>
-
-        <div class="category-grid">
-            <a href="#products" class="category-card">
-                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" alt="Sarees">
-                <div class="category-content">
-                    <h3>Designer Sarees</h3>
-                </div>
-            </a>
-            <a href="#products" class="category-card">
-                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=400&q=80" alt="Kurtis">
-                <div class="category-content">
-                    <h3>Kurtis & Sets</h3>
-                </div>
-            </a>
-        </div>
-
-        <!-- Products Section -->
         <div class="section-title" id="products">
             <h2>Trending Collection</h2>
         </div>
 
         <div class="product-grid" id="productContainer">
-            <!-- Sample Product 1 -->
             <div class="product-card">
                 <div class="product-media">
-                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" alt="Silk Saree">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Silk Saree">
                 </div>
                 <div class="product-details">
-                    <span class="product-category-tag">Sarees</span>
                     <div class="product-name">Royal Banarasi Silk Saree</div>
                     <div class="product-price-row">
                         <span class="price-now">₹899</span>
-                        <span class="price-was">₹2,499</span>
                     </div>
                     <button class="btn-pay" onclick="openOrderModal('Royal Banarasi Silk Saree', '899')">BUY NOW</button>
                 </div>
             </div>
         </div>
 
+        <div class="trust-section">
+            <div class="trust-card">
+                <h4>🔄 Easy Return Policy</h4>
+                <p>7 दिनों के अंदर आसान रिटर्न सुविधा।</p>
+            </div>
+            <div class="trust-card">
+                <h4>🚚 Fast Shipping</h4>
+                <p>पूरे भारत में तेजी से डिलीवरी।</p>
+            </div>
+            <div class="trust-card">
+                <h4>🔒 Trusted Shopping</h4>
+                <p>100% सुरक्षित भुगतान (SSL Encrypted).</p>
+            </div>
+        </div>
+
+        <div class="contact-box" id="contact">
+            <h3>Contact Us / सहायता के लिए संपर्क करें</h3>
+            <div class="contact-info">
+                📧 Gmail: <a href="mailto:yourgmail@gmail.com">yourgmail@gmail.com</a>
+            </div>
+            <div class="contact-info">
+                📞 Mobile / WhatsApp: <a href="https://wa.me/919876543210" target="_blank">+91 9876543210</a>
+            </div>
+            <p style="font-size: 11px; color: #64748b; margin-top: 5px;">सुबह 10:00 से शाम 7:00 बजे तक सपोर्ट उपलब्ध है।</p>
+        </div>
+
     </div>
 
-    <!-- CUSTOMER ORDER POPUP -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 10px; font-size: 15px;">Enter Delivery Details</h3>
+            <h3 style="margin-bottom: 12px; font-size: 16px;">Delivery Details</h3>
             <form id="customerOrderForm">
                 <input type="hidden" id="ordProductName">
                 <input type="hidden" id="ordProductPrice">
@@ -383,149 +340,71 @@
                     <input type="tel" id="custPhone" required placeholder="10 Digit Number">
                 </div>
                 <div class="form-group">
-                    <label>Size</label>
-                    <select id="custSize">
-                        <option value="Free Size">Free Size</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label>Address & Pincode</label>
                     <textarea id="custAddress" rows="2" required placeholder="Complete Address"></textarea>
                 </div>
                 
-                <button type="submit" style="width:100%; padding:10px; background:#28a745; color:white; border:none; border-radius:5px; font-weight:bold; margin-top:5px; cursor:pointer;">CONFIRM ORDER</button>
-                <button type="button" onclick="closeOrderModal()" style="width:100%; background:none; border:none; margin-top:8px; color:red; cursor:pointer; font-size:11px;">Cancel</button>
+                <p style="font-size:11px; font-weight:bold; margin-top:10px;">Select Payment Mode:</p>
+                <div class="pay-options">
+                    <button type="button" class="btn-online" onclick="payOnline()">💳 Online Pay (UPI/Card)</button>
+                    <button type="button" class="btn-cod" onclick="placeCODOrder()">🚚 Cash On Delivery</button>
+                </div>
+                <button type="button" onclick="closeOrderModal()" style="width:100%; background:none; border:none; margin-top:10px; color:red; cursor:pointer; font-size:12px;">Cancel</button>
             </form>
         </div>
     </div>
 
-    <!-- HIDDEN ADMIN DASHBOARD MODAL -->
+    <div id="policyModal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3>Return & Privacy Policy</h3>
+                <button onclick="closePolicyModal()" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>
+            </div>
+            <div style="font-size: 12px; line-height: 1.6; color: var(--text-main);">
+                <h4 style="margin-top:10px; color: var(--primary);">1. Return & Exchange Policy</h4>
+                <p>यदि आपको खराब या गलत प्रोडक्ट प्राप्त होता है, तो आप डिलीवरी के 7 दिनों के अंदर रिटर्न या एक्सचेंज के लिए अप्लाई कर सकते हैं। इसके लिए अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
+                
+                <h4 style="margin-top:10px; color: var(--primary);">2. Privacy Policy</h4>
+                <p>आपकी व्यक्तिगत जानकारी (नाम, पता, मोबाइल नंबर) केवल डिलीवरी और ऑर्डर प्रोसेसिंग के लिए इस्तेमाल की जाती है। हम आपकी जानकारी किसी तीसरे पक्ष के साथ शेयर नहीं करते।</p>
+                
+                <h4 style="margin-top:10px; color: var(--primary);">3. Shipping & Payment</h4>
+                <p>सभी ऑर्डर्स 3-5 कार्य दिवसों के भीतर डिलीवर कर दिए जाते हैं। ऑनलाइन भुगतान पूरी तरह से सुरक्षित है।</p>
+            </div>
+        </div>
+    </div>
+
     <div id="adminModal" class="modal">
         <div class="modal-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <h3 style="font-size:15px;">Admin Panel</h3>
-                <button onclick="closeAdminModal()" style="background:none; border:none; font-size:16px; cursor:pointer;">✖</button>
+                <h3>Admin Orders List</h3>
+                <button onclick="closeAdminModal()" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>
             </div>
-            
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('addProductTab', this)">➕ Add Product</button>
-                <button class="tab-btn" onclick="switchTab('ordersTab', this)">🛒 Orders</button>
-            </div>
-
-            <div id="addProductTab" class="tab-content active">
-                <form id="addProductForm">
-                    <div class="form-group">
-                        <label>Product Name</label>
-                        <input type="text" id="pName" placeholder="Saree Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="pCategory">
-                            <option>Sarees</option>
-                            <option>Kurtis & Sets</option>
-                            <option>Western</option>
-                        </select>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <div class="form-group" style="flex:1;">
-                            <label>Selling Price (₹)</label>
-                            <input type="number" id="pPrice" placeholder="899" required>
-                        </div>
-                        <div class="form-group" style="flex:1;">
-                            <label>MRP Price (₹)</label>
-                            <input type="number" id="pOldPrice" placeholder="2499">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Product Image</label>
-                        <input type="file" id="pImageFile" accept="image/*" required>
-                    </div>
-                    <button type="submit" style="width:100%; padding:10px; background:var(--accent); border:none; border-radius:4px; font-weight:bold; cursor:pointer;">SAVE PRODUCT</button>
-                </form>
-            </div>
-
-            <div id="ordersTab" class="tab-content">
-                <div style="overflow-x:auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name / Phone</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTableBody"></tbody>
-                    </table>
-                </div>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name / Phone</th>
+                            <th>Product</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 SYMMETRY Premium Women Fashion.</p>
+        <p>© 2026 SYMMETRY Premium Women Fashion. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="javascript:void(0)" onclick="openPolicyModal()">Return Policy</a>
+            <a href="javascript:void(0)" onclick="openPolicyModal()">Privacy Policy</a>
+            <a href="#contact">Contact Us</a>
+        </div>
     </footer>
 
     <script>
-        // Admin Modal Controls
-        function openAdminModal() {
-            document.getElementById('adminModal').style.display = 'flex';
-        }
-        function closeAdminModal() {
-            document.getElementById('adminModal').style.display = 'none';
-        }
-
-        // Tab Switching in Admin
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-            if(tabId === 'ordersTab') loadOrders();
-        }
-
-        // Add Product Logic
-        document.getElementById('addProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('pName').value;
-            const category = document.getElementById('pCategory').value;
-            const price = document.getElementById('pPrice').value;
-            const oldPrice = document.getElementById('pOldPrice').value;
-            const fileInput = document.getElementById('pImageFile');
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgSrc = e.target.result;
-                    const container = document.getElementById('productContainer');
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div class="product-media"><img src="${imgSrc}" alt="${name}"></div>
-                        <div class="product-details">
-                            <span class="product-category-tag">${category}</span>
-                            <div class="product-name">${name}</div>
-                            <div class="product-price-row">
-                                <span class="price-now">₹${price}</span>
-                                <span class="price-was">₹${oldPrice}</span>
-                            </div>
-                            <button class="btn-pay" onclick="openOrderModal('${name}', '${price}')">BUY NOW</button>
-                        </div>
-                    `;
-                    container.prepend(card);
-                    alert('🎉 Product Added Successfully!');
-                    closeAdminModal();
-                    document.getElementById('addProductForm').reset();
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        // Customer Order Controls
         function openOrderModal(pName, pPrice) {
             document.getElementById('ordProductName').value = pName;
             document.getElementById('ordProductPrice').value = pPrice;
@@ -536,42 +415,95 @@
             document.getElementById('orderModal').style.display = 'none';
         }
 
-        // Save Customer Order
-        document.getElementById('customerOrderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newOrder = {
-                id: '#ORD-' + Math.floor(1000 + Math.random() * 9000),
-                name: document.getElementById('custName').value,
-                phone: document.getElementById('custPhone').value,
-                product: document.getElementById('ordProductName').value,
-                price: '₹' + document.getElementById('ordProductPrice').value,
-                size: document.getElementById('custSize').value,
-                address: document.getElementById('custAddress').value
-            };
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'flex';
+            loadOrders();
+        }
 
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function openPolicyModal() {
+            document.getElementById('policyModal').style.display = 'flex';
+        }
+
+        function closePolicyModal() {
+            document.getElementById('policyModal').style.display = 'none';
+        }
+
+        // Razorpay Online Pay
+        function payOnline() {
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const address = document.getElementById('custAddress').value;
+            const product = document.getElementById('ordProductName').value;
+            const price = document.getElementById('ordProductPrice').value;
+
+            if(!name || !phone || !address) {
+                alert('कृपया पहले अपनी जानकारी भरें!');
+                return;
+            }
+
+            var options = {
+                "key": "rzp_test_YOUR_KEY_HERE",
+                "amount": price * 100,
+                "currency": "INR",
+                "name": "SYMMETRY Store",
+                "description": product,
+                "handler": function (response) {
+                    alert("🎉 पेमेंट सफल हुआ! Payment ID: " + response.razorpay_payment_id);
+                    saveOrder(name, phone, product, '₹' + price, address, 'Online Paid (' + response.razorpay_payment_id + ')', 'Paid');
+                    closeOrderModal();
+                },
+                "prefill": {
+                    "name": name,
+                    "contact": phone
+                },
+                "theme": { "color": "#0f172a" }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+        // COD Order
+        function placeCODOrder() {
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const address = document.getElementById('custAddress').value;
+            const product = document.getElementById('ordProductName').value;
+            const price = document.getElementById('ordProductPrice').value;
+
+            if(!name || !phone || !address) {
+                alert('कृपया अपनी जानकारी भरें!');
+                return;
+            }
+
+            saveOrder(name, phone, product, '₹' + price, address, 'Cash On Delivery', 'Pending');
+            alert('🎉 आपका COD ऑर्डर बुक हो गया है!');
+            closeOrderModal();
+        }
+
+        function saveOrder(name, phone, product, price, address, method, status) {
+            const newOrder = { name, phone, product, price, address, method, status };
             let orders = JSON.parse(localStorage.getItem('myOrders')) || [];
             orders.push(newOrder);
             localStorage.setItem('myOrders', JSON.stringify(orders));
+        }
 
-            alert('🎉 Order Confirmed!');
-            closeOrderModal();
-            this.reset();
-        });
-
-        // Load Orders in Admin Table
         function loadOrders() {
             const tbody = document.getElementById('ordersTableBody');
             const orders = JSON.parse(localStorage.getItem('myOrders')) || [];
             if(orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No orders yet.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">कोई ऑर्डर नहीं है।</td></tr>';
                 return;
             }
             tbody.innerHTML = orders.map(ord => `
                 <tr>
                     <td><strong>${ord.name}</strong><br>${ord.phone}</td>
-                    <td>${ord.product} (${ord.size})</td>
-                    <td>${ord.price}</td>
-                    <td>${ord.address}</td>
+                    <td>${ord.product} (${ord.price})</td>
+                    <td>${ord.method}</td>
+                    <td><span style="color:${ord.status === 'Paid' ? 'green' : 'orange'}; font-weight:bold;">${ord.status}</span></td>
                 </tr>
             `).join('');
         }
