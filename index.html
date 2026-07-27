@@ -1,961 +1,258 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURA - Premium Ethnic & Western Wear</title>
-  <!-- Google Fonts & Font Awesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    /* Global Resets & Styling */
-    :root {
-      --primary-color: #800020; /* Royal Burgundy */
-      --secondary-color: #d4af37; /* Gold Accent */
-      --dark-text: #222222;
-      --light-bg: #fdfbf7;
-      --white: #ffffff;
-      --gray-light: #f4f4f4;
-      --gray-border: #e0e0e0;
-      --font-heading: 'Playfair Display', serif;
-      --font-body: 'Poppins', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लग्जरी ई-कॉमर्स स्टोर - फैशन</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        /* Top Bar */
+        .top-bar {
+            background-color: #111;
+            color: #fff;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        .top-bar-contact a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        /* Header */
+        header {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #d32f2f;
+        }
+        .social-icons a {
+            margin-left: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #fff;
+        }
+        .btn-wa { background-color: #25D366; }
+        .btn-ig { background-color: #E1306C; }
+        .btn-fb { background-color: #1877F2; }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: var(--font-body);
-    }
-
-    body {
-      background-color: var(--light-bg);
-      color: var(--dark-text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-
-    /* Top Announcement Bar */
-    .announcement-bar {
-      background: var(--primary-color);
-      color: var(--white);
-      text-align: center;
-      padding: 8px 15px;
-      font-size: 0.85rem;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-
-    /* Navigation Header */
-    header {
-      background: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .nav-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-    }
-
-    .logo {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      letter-spacing: 1px;
-    }
-
-    .nav-menu { display: flex; gap: 25px; }
-    .nav-link {
-      font-weight: 500;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: color 0.3s;
-    }
-    .nav-link:hover { color: var(--primary-color); }
-
-    .nav-icons { display: flex; gap: 20px; font-size: 1.2rem; cursor: pointer; }
-    .cart-icon-wrap { position: relative; }
-
-    .cart-badge {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: var(--primary-color);
-      color: white;
-      font-size: 0.7rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Hero Banner Carousel */
-    .hero-banner {
-      position: relative;
-      height: 75vh;
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--white);
-    }
-
-    .hero-content h1 {
-      font-family: var(--font-heading);
-      font-size: 3.5rem;
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .hero-content p { font-size: 1.2rem; margin-bottom: 25px; letter-spacing: 1px; }
-
-    .btn-primary {
-      background: var(--secondary-color);
-      color: var(--dark-text);
-      padding: 12px 35px;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-    }
-
-    .btn-primary:hover { background: #c29d2b; transform: translateY(-2px); }
-
-    /* Section Layout */
-    .section-title {
-      text-align: center;
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      margin: 50px 0 30px;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      width: 60px;
-      height: 3px;
-      background: var(--secondary-color);
-      display: block;
-      margin: 10px auto 0;
-    }
-
-    /* Categories Grid */
-    .categories-grid {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .category-card {
-      position: relative;
-      height: 280px;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .category-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-
-    .category-card:hover img { transform: scale(1.08); }
-
-    .category-overlay {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-      color: white;
-      text-align: center;
-    }
-
-    /* Product Grid */
-    .product-grid {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-      padding: 0 20px;
-    }
-
-    .product-card {
-      background: var(--white);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
-      position: relative;
-    }
-
-    .product-card:hover { transform: translateY(-5px); }
-
-    .product-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: var(--primary-color);
-      color: white;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 3px;
-      z-index: 10;
-    }
-
-    .product-img-wrap { position: relative; height: 380px; width: 100%; overflow: hidden; }
-    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .product-details { padding: 15px; }
-    .product-title { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
-    .product-price { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
-    .current-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-color); }
-    .original-price { text-decoration: line-through; color: #888; font-size: 0.9rem; }
-    .discount { color: #2e7d32; font-size: 0.85rem; font-weight: 600; }
-
-    .add-to-cart-btn {
-      width: 100%;
-      padding: 10px;
-      background: var(--dark-text);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.3s;
-    }
-
-    .add-to-cart-btn:hover { background: var(--primary-color); }
-
-    /* Trust & Value Highlights */
-    .trust-features { background: var(--gray-light); padding: 40px 20px; margin-top: 60px; }
-    .trust-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      text-align: center;
-    }
-
-    .trust-item i { font-size: 2rem; color: var(--primary-color); margin-bottom: 10px; }
-    .trust-item h4 { font-size: 1.05rem; margin-bottom: 5px; }
-    .trust-item p { font-size: 0.85rem; color: #666; }
-
-    /* Admin Quick Toggle Floating Buttons */
-    .admin-toggle {
-      position: fixed;
-      bottom: 90px;
-      right: 25px;
-      background: #333;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .orders-toggle {
-      position: fixed;
-      bottom: 145px;
-      right: 25px;
-      background: var(--primary-color);
-      color: white;
-      padding: 10px 18px;
-      border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    /* Floating WhatsApp Button */
-    .whatsapp-btn {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #25d366;
-      color: white;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 2000;
-    }
-
-    /* Modals & Cart Side Drawer */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 3000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .admin-content, .checkout-content, .orders-content {
-      background: white;
-      width: 90%;
-      max-width: 600px;
-      max-height: 85vh;
-      border-radius: 8px;
-      overflow-y: auto;
-      padding: 30px;
-      position: relative;
-    }
-
-    .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
-
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
-    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--gray-border); border-radius: 4px; }
-
-    /* Side Cart Drawer Style */
-    #cartDrawer {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      max-width: 380px;
-      height: 100%;
-      background: #fff;
-      box-shadow: -4px 0 15px rgba(0,0,0,0.2);
-      z-index: 3500;
-      padding: 20px;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .payment-option {
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .payment-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-    }
-
-    .payment-row input { width: auto; }
-
-    #upiDetailsBox {
-      display: none;
-      margin-top: 8px;
-      padding-left: 24px;
-    }
-
-    /* Social Icons Styling */
-    .social-icons-box {
-      display: flex;
-      gap: 15px;
-      margin-top: 12px;
-    }
-    .social-icons-box a {
-      background: #222;
-      color: white;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-    }
-    .social-icons-box a:hover {
-      background: var(--secondary-color);
-      color: var(--dark-text);
-    }
-
-    /* Footer */
-    footer { background: #111; color: #ccc; padding: 50px 20px 20px; font-size: 0.9rem; }
-    .footer-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-    .footer-col h3 { color: white; font-family: var(--font-heading); margin-bottom: 15px; font-size: 1.2rem; }
-    .footer-col ul li { margin-bottom: 8px; }
-    .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #333; color: #777; }
-  </style>
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        .product-image-section {
+            flex: 1 1 50%;
+            padding-right: 20px;
+        }
+        .main-img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+        .product-details-section {
+            flex: 1 1 50%;
+            padding-left: 20px;
+        }
+        .category-tag {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #777;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .product-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .price-box {
+            font-size: 22px;
+            margin: 15px 0;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .new-price {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .options-group {
+            margin-bottom: 15px;
+        }
+        .options-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .options-group select, .options-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .buy-btn {
+            background-color: #d32f2f;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .buy-btn:hover {
+            background-color: #b71c1c;
+        }
+        /* Policies & Info Accordion / Box */
+        .policy-box {
+            margin-top: 30px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #666;
+        }
+        .policy-box h4 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .policy-box ul {
+            padding-left: 20px;
+        }
+        .policy-box li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Top Announcement Bar -->
-  <div class="announcement-bar">
-    ✨ Festive Sale Live! Get 50% Off + Extra 10% Off on Prepaid Orders | Code: FESTIVE10 | Helpline: 8383970399
-  </div>
-
-  <!-- Main Navigation -->
-  <header>
-    <div class="nav-container">
-      <div class="logo">AURA</div>
-      <ul class="nav-menu">
-        <li><a href="#" class="nav-link">New Arrivals</a></li>
-        <li><a href="#" class="nav-link">Sarees</a></li>
-        <li><a href="#" class="nav-link">Kurtis</a></li>
-        <li><a href="#" class="nav-link">Lehengas</a></li>
-        <li><a href="#" class="nav-link">Western Wear</a></li>
-        <li><a href="#" class="nav-link" style="color: var(--primary-color);">Sale</a></li>
-      </ul>
-      <div class="nav-icons">
-        <i class="fa-solid fa-magnifying-glass" title="Search"></i>
-        <i class="fa-regular fa-heart" title="Wishlist"></i>
-        <i class="fa-regular fa-user" title="Account"></i>
-        <!-- Click to open Slide-out Cart Drawer -->
-        <div class="cart-icon-wrap" onclick="toggleCart()">
-          <i class="fa-solid fa-bag-shopping" title="Cart"></i>
-          <span class="cart-badge" id="cartCount">0</span>
+    <!-- टॉप बार जिसमें जीमेल और फोन नंबर है -->
+    <div class="top-bar">
+        <div class="top-bar-contact">
+            <span>📞 हेल्पलाइन: +91 9876543210</span> | 
+            <span>📧 ईमेल: support@yourdomain.com</span>
         </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <div class="hero-content">
-      <h1>Royal Festive Collection 2026</h1>
-      <p>Handcrafted Elegance & Modern Silhouettes</p>
-      <button class="btn-primary">Explore Collection</button>
-    </div>
-  </section>
-
-  <!-- Shop By Category -->
-  <h2 class="section-title">Shop By Category</h2>
-  <div class="categories-grid">
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Sarees">
-      <div class="category-overlay"><h3>Designer Sarees</h3></div>
-    </div>
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Anarkali">
-      <div class="category-overlay"><h3>Anarkali Suits</h3></div>
-    </div>
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Western">
-      <div class="category-overlay"><h3>Western Dresses</h3></div>
-    </div>
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Co-ords">
-      <div class="category-overlay"><h3>Co-ord Sets</h3></div>
-    </div>
-  </div>
-
-  <!-- Trending Products Section -->
-  <h2 class="section-title">Trending Now</h2>
-  <div class="product-grid" id="productGrid">
-    
-    <!-- Product 1 -->
-    <div class="product-card">
-      <span class="product-badge">BESTSELLER</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Silk Saree">
-      </div>
-      <div class="product-details">
-        <div class="product-title">Banarasi Silk Woven Saree</div>
-        <div class="product-price">
-          <span class="current-price">₹2,499</span>
-          <span class="original-price">₹4,999</span>
-          <span class="discount">(50% OFF)</span>
+        <div>
+            <span>मुफ्त शिपिंग | कैश ऑन डिलीवरी (COD) उपलब्ध</span>
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart('Banarasi Silk Woven Saree', 2499)">Add to Cart</button>
-      </div>
     </div>
 
-    <!-- Product 2 -->
-    <div class="product-card">
-      <span class="product-badge">NEW</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Kurti Set">
-      </div>
-      <div class="product-details">
-        <div class="product-title">Embroidered Anarkali Kurta Set</div>
-        <div class="product-price">
-          <span class="current-price">₹1,899</span>
-          <span class="original-price">₹3,799</span>
-          <span class="discount">(50% OFF)</span>
+    <!-- हेडर और सोशल मीडिया लिंक्स -->
+    <header>
+        <div class="logo">LUXURY STORE</div>
+        <div class="social-icons">
+            <a href="https://wa.me/919876543210" target="_blank" class="btn-wa">WhatsApp</a>
+            <a href="https://instagram.com/yourprofile" target="_blank" class="btn-ig">Instagram</a>
+            <a href="https://facebook.com/yourprofile" target="_blank" class="btn-fb">Facebook</a>
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart('Embroidered Anarkali Set', 1899)">Add to Cart</button>
-      </div>
-    </div>
+    </header>
 
-    <!-- Product 3 -->
-    <div class="product-card">
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Western Dress">
-      </div>
-      <div class="product-details">
-        <div class="product-title">Floral Satin Evening Gown</div>
-        <div class="product-price">
-          <span class="current-price">₹1,299</span>
-          <span class="original-price">₹2,599</span>
-          <span class="discount">(50% OFF)</span>
-        </div>
-        <button class="add-to-cart-btn" onclick="addToCart('Floral Satin Evening Gown', 1299)">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Trust Features -->
-  <section class="trust-features">
-    <div class="trust-container">
-      <div class="trust-item">
-        <i class="fa-solid fa-truck-fast"></i>
-        <h4>Fast Delivery</h4>
-        <p>Ships within 24-48 hours</p>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-rotate-left"></i>
-        <h4>Easy 7-Day Returns</h4>
-        <p>Hassle-free return policy</p>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h4>100% Secure Payments</h4>
-        <p>UPI, Cards, NetBanking & COD</p>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-award"></i>
-        <h4>100% Original Products</h4>
-        <p>Premium Fabric & Quality</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Side Sliding Cart Drawer -->
-  <div id="cartDrawer">
-    <div>
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:10px;">
-        <h3 style="margin:0; font-family:var(--font-heading);">Shopping Bag</h3>
-        <span onclick="toggleCart()" style="cursor:pointer; font-size:1.5rem;">&times;</span>
-      </div>
-      <div id="cartItemsList" style="margin-top:20px; max-height: 60vh; overflow-y: auto;">
-        <p id="emptyCartMsg" style="color:#777; text-align:center; margin-top:30px;">आपका कार्ट अभी खाली है।</p>
-      </div>
-    </div>
-    
-    <div style="border-top:1px solid #eee; padding-top:15px; margin-top:auto;">
-      <div style="display:flex; justify-content:space-between; font-weight:bold; font-size: 1.1rem; margin-bottom:15px;">
-        <span>Total Amount:</span>
-        <span id="cartTotal">₹0</span>
-      </div>
-      <button class="btn-primary" style="width:100%; text-align:center;" onclick="openCheckout()">Checkout / Payment</button>
-    </div>
-  </div>
-
-  <!-- Checkout & Payment Gateway Modal -->
-  <div class="modal-overlay" id="checkoutModal">
-    <div class="checkout-content">
-      <span class="close-modal" onclick="closeCheckout()">&times;</span>
-      <h2 style="font-family: var(--font-heading); margin-bottom: 15px;">Complete Your Order</h2>
-      
-      <form onsubmit="processPayment(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="custName" placeholder="Saurabh Kumar" required>
-        </div>
-        <div class="form-group">
-          <label>Delivery Address</label>
-          <input type="text" id="custAddress" placeholder="House No, Road, City, Pincode" required>
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" id="custPhone" value="8383970399" required>
+    <!-- मुख्य प्रोडक्ट सेक्शन -->
+    <div class="container">
+        <!-- प्रोडक्ट इमेज -->
+        <div class="product-image-section">
+            <img src="https://www.mariab.pk/cdn/shop/files/D2402-A_3.jpg?v=1721462795&width=800" alt="Product Image" class="main-img">
         </div>
 
-        <h3 style="margin: 15px 0 10px; font-size: 1.1rem;">Select Payment Option</h3>
-        
-        <!-- UPI Option with Custom ID Input -->
-        <label class="payment-option">
-          <div class="payment-row">
-            <input type="radio" name="payment" value="UPI" checked onclick="toggleUpiInput(true)">
-            <i class="fa-solid fa-qrcode" style="color: #25d366;"></i> UPI (PhonePe / GPay / Paytm)
-          </div>
-          <div id="upiDetailsBox">
-            <input type="text" id="userUpiId" placeholder="Enter UPI ID (e.g. 8383970399@paytm)" style="font-size: 0.85rem; padding: 6px;">
-            <small style="color: #666; display: block; margin-top: 3px;">Merchant UPI: <b>8383970399@paytm</b></small>
-          </div>
-        </label>
-
-        <label class="payment-option">
-          <div class="payment-row">
-            <input type="radio" name="payment" value="Card" onclick="toggleUpiInput(false)">
-            <i class="fa-regular fa-credit-card" style="color: #007bff;"></i> Debit / Credit Card
-          </div>
-        </label>
-
-        <label class="payment-option">
-          <div class="payment-row">
-            <input type="radio" name="payment" value="COD" onclick="toggleUpiInput(false)">
-            <i class="fa-solid fa-money-bill-wave" style="color: #2e7d32;"></i> Cash on Delivery (COD)
-          </div>
-        </label>
-
-        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px;">Pay Now & Place Order</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Floating Admin & Orders Buttons -->
-  <div class="orders-toggle" onclick="toggleOrdersPanel()">
-    <i class="fa-solid fa-box-open"></i> View Orders (<span id="orderCountBadge">0</span>)
-  </div>
-
-  <div class="admin-toggle" onclick="toggleAdminPanel()">
-    <i class="fa-solid fa-sliders"></i> Add Product (Admin)
-  </div>
-
-  <a href="https://wa.me/918383970399" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
-
-  <!-- Admin Panel Modal -->
-  <div class="modal-overlay" id="adminModal">
-    <div class="admin-content">
-      <span class="close-modal" onclick="toggleAdminPanel()">&times;</span>
-      <h2 style="font-family: var(--font-heading); margin-bottom: 20px;">Store Admin Panel</h2>
-      
-      <form id="addProductForm" onsubmit="handleProductAdd(event)">
-        <h3>Add New Product to Store</h3>
-        <br>
-        <div class="form-group">
-          <label>Product Name</label>
-          <input type="text" id="pName" placeholder="e.g. Designer Heavy Silk Kurti" required>
-        </div>
-        <div class="form-group">
-          <label>Category</label>
-          <select id="pCat">
-            <option>Sarees</option>
-            <option>Kurtis</option>
-            <option>Lehengas</option>
-            <option>Western Wear</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Selling Price (₹)</label>
-          <input type="number" id="pPrice" placeholder="1999" required>
-        </div>
-        <div class="form-group">
-          <label>Original MRP (₹)</label>
-          <input type="number" id="pOrigPrice" placeholder="3999" required>
-        </div>
-        <div class="form-group">
-          <label>Image URL (Direct Photo Link)</label>
-          <input type="url" id="pImg" placeholder="https://images.unsplash.com/..." required>
-        </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Publish Product Live</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- View Customer Orders Database Modal -->
-  <div class="modal-overlay" id="ordersModal">
-    <div class="orders-content">
-      <span class="close-modal" onclick="toggleOrdersPanel()">&times;</span>
-      <h2 style="font-family: var(--font-heading); margin-bottom: 15px;">Customer Orders Database</h2>
-      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">यहाँ आपके स्टोर पर आने वाले सभी ऑर्डर सेव रहते हैं:</p>
-      
-      <div id="ordersListContainer" style="max-height: 50vh; overflow-y: auto;">
-        <p style="color:#777; text-align:center; margin-top:20px;">कोई नया ऑर्डर नहीं मिला है।</p>
-      </div>
-      
-      <button onclick="clearAllOrders()" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; margin-top: 15px; cursor: pointer; font-size: 0.85rem;">Clear All Orders</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <h3>AURA</h3>
-        <p>Premium Indian Ethnic & Contemporary Western Wear store crafted for the modern diva.</p>
-        <p style="margin-top: 10px; color: var(--secondary-color); font-weight: 600;"><i class="fa-solid fa-phone"></i> +91 8383970399</p>
-      </div>
-      <div class="footer-col">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Customer Care</h3>
-        <ul>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">FAQs</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Follow Us</h3>
-        <p>Join our community for daily outfit inspiration.</p>
-        <!-- Instagram & Facebook Links Added Here -->
-        <div class="social-icons-box">
-          <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://wa.me/918383970399" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2026 AURA Fashion Inc. All rights reserved. | Contact: 8383970399
-    </div>
-  </footer>
-
-  <!-- Complete Functional Logic -->
-  <script>
-    let cartCount = 0;
-    let totalPrice = 0;
-    let cartItemsArray = [];
-
-    // Load saved orders count on start
-    document.addEventListener("DOMContentLoaded", () => {
-      updateOrdersBadge();
-    });
-
-    // Cart Sliding Toggle
-    function toggleCart() {
-      const drawer = document.getElementById('cartDrawer');
-      drawer.style.display = (drawer.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    // Add Items to Cart
-    function addToCart(title, price) {
-      cartCount++;
-      totalPrice += price;
-      cartItemsArray.push({ title, price });
-
-      document.getElementById('cartCount').innerText = cartCount;
-      document.getElementById('emptyCartMsg').style.display = 'none';
-
-      const cartList = document.getElementById('cartItemsList');
-      const itemRow = document.createElement('div');
-      itemRow.style.cssText = "display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px dashed #eee; padding-bottom:8px;";
-      itemRow.innerHTML = `<span style="font-size:0.9rem; font-weight:500;">${title}</span> <strong style="color:var(--primary-color);">₹${price}</strong>`;
-      
-      cartList.appendChild(itemRow);
-      document.getElementById('cartTotal').innerText = `₹${totalPrice}`;
-
-      // Show Cart Drawer
-      document.getElementById('cartDrawer').style.display = 'flex';
-    }
-
-    // Checkout Modal Handlers
-    function openCheckout() {
-      if(cartCount === 0) {
-        alert("आपका कार्ट अभी खाली है! पहले कोई प्रोडक्ट ऐड करें।");
-        return;
-      }
-      toggleCart();
-      document.getElementById('checkoutModal').style.display = 'flex';
-    }
-
-    function closeCheckout() {
-      document.getElementById('checkoutModal').style.display = 'none';
-    }
-
-    function toggleUpiInput(show) {
-      const box = document.getElementById('upiDetailsBox');
-      box.style.display = show ? 'block' : 'none';
-    }
-
-    // Payment & Order Placement Processing (Database Saving)
-    function processPayment(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('custName').value;
-      const address = document.getElementById('custAddress').value;
-      const phone = document.getElementById('custPhone').value;
-      
-      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-      let paymentDetail = paymentMethod;
-      if(paymentMethod === 'UPI') {
-        const upiIdVal = document.getElementById('userUpiId').value || 'Not Entered';
-        paymentDetail = `UPI (${upiIdVal})`;
-      }
-
-      // Create Order Object
-      const newOrder = {
-        id: Date.now().toString().slice(-6),
-        date: new Date().toLocaleString(),
-        name,
-        address,
-        phone,
-        items: [...cartItemsArray],
-        total: totalPrice,
-        payment: paymentDetail
-      };
-
-      // Save to Browser LocalStorage Database
-      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
-      savedOrders.unshift(newOrder); // Add to top
-      localStorage.setItem('aura_store_orders', JSON.stringify(savedOrders));
-
-      alert('🎉 बधाई हो! आपका ऑर्डर सफलतापूर्वक प्लेस हो गया है।');
-      
-      // Reset Cart
-      cartCount = 0;
-      totalPrice = 0;
-      cartItemsArray = [];
-      document.getElementById('cartCount').innerText = '0';
-      document.getElementById('cartItemsList.innerHTML') = '<p id="emptyCartMsg" style="color:#777; text-align:center; margin-top:30px;">आपका कार्ट अभी खाली है।</p>';
-      
-      closeCheckout();
-      updateOrdersBadge();
-      location.reload(); 
-    }
-
-    // Orders Database Panel Handlers
-    function toggleOrdersPanel() {
-      const modal = document.getElementById('ordersModal');
-      if(modal.style.display === 'flex') {
-        modal.style.display = 'none';
-      } else {
-        renderOrdersList();
-        modal.style.display = 'flex';
-      }
-    }
-
-    function updateOrdersBadge() {
-      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
-      document.getElementById('orderCountBadge').innerText = savedOrders.length;
-    }
-
-    function renderOrdersList() {
-      const container = document.getElementById('ordersListContainer');
-      let savedOrders = JSON.parse(localStorage.getItem('aura_store_orders')) || [];
-
-      if(savedOrders.length === 0) {
-        container.innerHTML = '<p style="color:#777; text-align:center; margin-top:20px;">कोई नया ऑर्डर नहीं मिला है।</p>';
-        return;
-      }
-
-      let html = '';
-      savedOrders.forEach((ord, index) => {
-        let itemsStr = ord.items.map(i => `${i.title} (₹${i.price})`).join(', ');
-        html += `
-          <div style="background: #f9f6f0; border: 1px solid #e2d7c5; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 0.9rem;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--primary-color);">
-              <span>Order #${ord.id}</span>
-              <span>₹${ord.total}</span>
+        <!-- प्रोडक्ट डिटेल्स और फॉर्म -->
+        <div class="product-details-section">
+            <div class="category-tag">कैटेगरी: सूट / लग्जरी लॉन</div>
+            <h1 class="product-title">डिजाइनर पार्टी वेयर अनस्टिच्ड सूट</h1>
+            
+            <div class="price-box">
+                <span class="old-price">₹14,999</span>
+                <span class="new-price">₹10,999</span>
             </div>
-            <p style="margin: 4px 0;"><b>Customer:</b> ${ord.name} (${ord.phone})</p>
-            <p style="margin: 4px 0;"><b>Address:</b> ${ord.address}</p>
-            <p style="margin: 4px 0;"><b>Items:</b> ${itemsStr}</p>
-            <p style="margin: 4px 0; color: #2e7d32;"><b>Payment:</b> ${ord.payment}</p>
-            <small style="color: #777;">Placed on: ${ord.date}</small>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    }
 
-    function clearAllOrders() {
-      if(confirm("क्या आप सभी ऑर्डर्स का डेटा डिलीट करना चाहते हैं?")) {
-        localStorage.removeItem('aura_store_orders');
-        renderOrdersList();
-        updateOrdersBadge();
-      }
-    }
+            <div class="description">
+                <p><strong>विवरण:</strong> यह प्रीमियम क्वालिटी का एथनिक सूट है, जिसमें बारीक कढ़ाई और बेहतरीन फैब्रिक का इस्तेमाल किया गया है। यह शादी और त्योहारों के लिए एकदम सही विकल्प है।</p>
+                <p><strong>SKU Code:</strong> LUX-SKU-001</p>
+                <p><strong>स्टॉक:</strong> <span style="color: green; font-weight: bold;">In Stock (12 पीस उपलब्ध)</span></p>
+            </div>
 
-    // Admin Panel Modal Handlers
-    function toggleAdminPanel() {
-      const modal = document.getElementById('adminModal');
-      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    }
+            <!-- साइज सिलेक्शन -->
+            <div class="options-group">
+                <label for="size">साइज चुनें (Size):</label>
+                <select id="size">
+                    <option value="s">Small (S)</option>
+                    <option value="m" selected>Medium (M)</option>
+                    <option value="l">Large (L)</option>
+                    <option value="xl">Extra Large (XL)</option>
+                </select>
+            </div>
 
-    // Dynamic Product Add Logic
-    function handleProductAdd(event) {
-      event.preventDefault();
-      
-      const name = document.getElementById('pName').value;
-      const price = parseInt(document.getElementById('pPrice').value);
-      const origPrice = document.getElementById('pOrigPrice').value;
-      const img = document.getElementById('pImg').value;
+            <!-- कलर वैरिएंट -->
+            <div class="options-group">
+                <label for="color">रंग चुनें (Color Variant):</label>
+                <select id="color">
+                    <option value="pink">पिंक (Pink)</option>
+                    <option value="red">रेड (Red)</option>
+                    <option value="blue">ब्लू (Blue)</option>
+                </select>
+            </div>
 
-      const productGrid = document.getElementById('productGrid');
-      
-      const newCard = document.createElement('div');
-      newCard.className = 'product-card';
-      newCard.innerHTML = `
-        <span class="product-badge">NEW</span>
-        <div class="product-img-wrap">
-          <img src="${img}" alt="${name}">
+            <!-- क्वांटिटी -->
+            <div class="options-group">
+                <label for="qty">मात्रा (Quantity):</label>
+                <input type="number" id="qty" value="1" min="1" max="10">
+            </div>
+
+            <button class="buy-btn" onclick="alert('ऑर्डर करने के लिए धन्यवाद! जल्द ही हमारी टीम आपसे संपर्क करेगी।')">अभी खरीदें (Buy Now / COD)</button>
+
+            <!-- पॉलिसी और शिपिंग डिटेल्स -->
+            <div class="policy-box">
+                <h4>📌 पॉलिसी और अन्य विवरण:</h4>
+                <ul>
+                    <li><strong>शिपिंग डिटेल्स:</strong> 3 से 5 कार्य दिवसों में डिलीवरी। भारत भर में फ्री शिपिंग।</li>
+                    <li><strong>रिटर्न और एक्सचेंज:</strong> डिलीवरी के 7 दिनों के भीतर आसान रिटर्न और एक्सचेंज पॉलिसी उपलब्ध।</li>
+                    <li><strong>पेमेंट विकल्प:</strong> ऑनलाइन पेमेंट गेटवे और कैश ऑन डिलीवरी (COD) दोनों उपलब्ध।</li>
+                </ul>
+            </div>
         </div>
-        <div class="product-details">
-          <div class="product-title">${name}</div>
-          <div class="product-price">
-            <span class="current-price">₹${price}</span>
-            <span class="original-price">₹${origPrice}</span>
-            <span class="discount">NEW</span>
-          </div>
-          <button class="add-to-cart-btn" onclick="addToCart('${name}', ${price})">Add to Cart</button>
-        </div>
-      `;
+    </div>
 
-      productGrid.prepend(newCard);
-      alert('✅ नया प्रोडक्ट दुकान पर लाइव हो गया है!');
-      toggleAdminPanel();
-      document.getElementById('addProductForm').reset();
-    }
-  </script>
 </body>
 </html>
